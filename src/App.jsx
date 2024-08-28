@@ -3,7 +3,7 @@ import Groceries from "./components/Groceries";
 import FinalList from "./components/FinalList";
 import "./App.css";
 
-const Categories = () => {
+const App = () => {
   const [list, setList] = useState({});
 
   return (
@@ -14,4 +14,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default App;
