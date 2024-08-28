@@ -1,16 +1,9 @@
 const GROCERIES = [
-  "minced beef",
-  "minced chicken",
-  "pork strips",
-  "milk",
-  "yoghurt",
-  "cheese",
-  "carrots",
-  "potatoes",
-  "onions",
-  "apples",
-  "bananas",
-  "oranges",
+  { category: "meat", items: ["minced beef", "minced chicken", "pork strips"] },
+  { category: "dairy", items: ["milk", "yoghurt", "cheese"] },
+  { category: "fruits", items: ["apples", "bananas", "oranges"] },
+  { category: "vegetables", items: ["carrots", "potatoes", "onions"] },
+  { category: "canned", items: ["baked beans", "tuna", "sweetcorn"] },
 ];
 
 export { GROCERIES };

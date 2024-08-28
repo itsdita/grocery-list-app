@@ -13,14 +13,19 @@ const Groceries = ({ updateList }) => {
   return (
     <article className="grocery-list">
       <h2>Groceries</h2>
-      <ul id="grocery-list">
-        {GROCERIES.map((item, index) => (
-          <li key={index}>
-            <input onChange={handleCheck} type="checkbox" value={item} />
-            {item}
-          </li>
-        ))}
-      </ul>
+      {GROCERIES.map((category, index) => {
+        return (
+          <ul key={index} className="grocery-list">
+            <h3>{category.category}</h3>
+            {category.items.map((item, index) => (
+              <li key={index}>
+                <input onChange={handleCheck} type="checkbox" value={item} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        );
+      })}
     </article>
   );
 };
