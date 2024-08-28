@@ -1,15 +1,17 @@
-import { useState } from 'react'
-import './App.css'
-import Categories from './components/Categories'
+import { useState } from "react";
+import "./App.css";
+import Groceries from "./components/Groceries";
+import FinalList from "./components/FinalList";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [list, setList] = useState([]);
 
   return (
     <>
-      <Categories/>
+      <Groceries updateList={setList} />
+      <FinalList list={list} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
