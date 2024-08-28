@@ -1,5 +1,6 @@
 import { GROCERIES } from "../data";
 
+/* Groceries component receives the updateList function as a prop*/
 const Groceries = ({ updateList }) => {
   /* the funcion handleCheck is called when the checkbox is clicked
   it receives the event and the category name as arguments */
