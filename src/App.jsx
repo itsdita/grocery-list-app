@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "./App.css";
 import Groceries from "./components/Groceries";
 import FinalList from "./components/FinalList";
+import "./App.css";
 
-function App() {
-  const [list, setList] = useState([]);
+const Categories = () => {
+  const [list, setList] = useState({});
 
   return (
     <>
@@ -12,6 +12,6 @@ function App() {
       <FinalList list={list} />
     </>
   );
-}
+};
 
-export default App;
+export default Categories;

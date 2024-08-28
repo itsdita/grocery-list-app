@@ -10,7 +10,7 @@
 h3{
   margin:0;
 }
-#final-list {
+.final-list {
   list-style-type: none;
   min-width: 200px;
 }

@@ -1,35 +1,48 @@
 import { GROCERIES } from "../data";
 
 const Groceries = ({ updateList }) => {
-  function handleCheck(e) {
+  function handleCheck(e, category) {
     const item = e.target.value;
-    if (e.target.checked) {
-      updateList((prevList) => [...prevList, item]);
-    } else {
-      updateList((prevList) => prevList.filter((i) => i !== item));
-    }
+    updateList((prevList) => {
+      let updatedCategory = prevList[category] || [];
+
+      if (e.target.checked) {
+        updatedCategory = [...updatedCategory, item];
+      } else {
+        updatedCategory = updatedCategory.filter((i) => i !== item);
+      }
+
+      const newList = { ...prevList };
+      if (updatedCategory.length > 0) {
+        newList[category] = updatedCategory;
+      } else {
+        delete newList[category];
+      }
+
+      return newList;
+    });
   }
 
   return (
-    <article id="grocery-list-container">
-      <div>
-        <h2>Groceries</h2>
-      </div>
-      <div id="grocery-list">
-        {GROCERIES.map((category, index) => {
-          return (
-            <ul key={index} className="grocery-list">
-              <h3>{category.category}</h3>
-              {category.items.map((item, index) => (
-                <li key={index}>
-                  <input onChange={handleCheck} type="checkbox" value={item} />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          );
-        })}
-      </div>
+    <article className="grocery-list">
+      <h2>Groceries</h2>
+      {GROCERIES.map((group, index) => (
+        <div key={index}>
+          <h3>{group.category}</h3>
+          <ul className="grocery-list">
+            {group.items.map((item, i) => (
+              <li key={i}>
+                <input
+                  onChange={(e) => handleCheck(e, group.category)}
+                  type="checkbox"
+                  value={item}
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </article>
   );
 };

@@ -1,15 +1,19 @@
 const FinalList = ({ list }) => {
-    console.log(list);
-    return (
-      <article>
-        <h2>Final List</h2>
-        <ul id="final-list">
-          {list.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
-        </ul>
-      </article>
-    );
-  };
-  
-  export default FinalList;
+  return (
+    <article>
+      <h2>Final List</h2>
+      {Object.keys(list).map((category, index) => (
+        <div key={index}>
+          <h3>{category}</h3>
+          <ul className="final-list">
+            {list[category].map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </article>
+  );
+};
+
+export default FinalList;
