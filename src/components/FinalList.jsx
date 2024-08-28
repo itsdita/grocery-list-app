@@ -1,4 +1,5 @@
 const FinalList = ({ list }) => {
+    console.log(list);
     return (
       <article>
         <h2>Final List</h2>
