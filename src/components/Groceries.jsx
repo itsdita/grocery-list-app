@@ -34,27 +34,32 @@ const Groceries = ({ updateList, list }) => {
       <h2>Groceries</h2>
       {/* iterating over all objects in GROCERIES array
       group is category */}
-      {GROCERIES.map((group, index) => (
-        <div key={index}>
-          {/* accessing the key that holds the name of the category */}
-          <h3>{group.category}</h3>
-          <ul className="grocery-list">
-            {/* iterating over array of items in a category */}
-            {group.items.map((item, i) => (
-              <li key={i}>
-                <input
-                  /* passing the event and the category name to handleCheck function */
-                  onChange={(e) => handleCheck(e, group.category, item)}
-                  type="checkbox"
-                  checked={(list[group.category] && list[group.category][item]) || false}
-                  value={item}
-                />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <div className="grocery-list-container">
+        {GROCERIES.map((group, index) => (
+          <div key={index} className="category-container">
+            {/* accessing the key that holds the name of the category */}
+            <h3>{group.category}</h3>
+            <ul>
+              {/* iterating over array of items in a category */}
+              {group.items.map((item, i) => (
+                <li key={i}>
+                  <input
+                    /* passing the event and the category name to handleCheck function */
+                    onChange={(e) => handleCheck(e, group.category, item)}
+                    type="checkbox"
+                    checked={
+                      (list[group.category] && list[group.category][item]) ||
+                      false
+                    }
+                    value={item}
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </article>
   );
 };
