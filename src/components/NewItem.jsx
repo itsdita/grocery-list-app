@@ -12,7 +12,7 @@ const NewItem = ({ groceries, addNewItem }) => {
   };
 
   return (
-    <article>
+    <article className="new-item">
       <h2>Add New Item</h2>
       <h3>Pick Existing Category</h3>
       <select
@@ -39,6 +39,7 @@ const NewItem = ({ groceries, addNewItem }) => {
         onChange={(e) => setNewCategory(e.target.value)}
         placeholder="Enter new category"
       />
+      <h3>Add New Item</h3>
       <input
         type="text"
         value={newItem}

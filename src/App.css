@@ -63,3 +63,28 @@ button:hover {
   background-color: #7dbf8e;
   color: white;
 }
+select {
+  color:#2e2e2e;
+  padding: 10px;
+  margin: 0 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #ebfcec;
+  transition: background-color 0.3s;
+}
+select:focus {
+  outline: 3px solid #7dbf8e;
+}
+
+.new-item input{
+  color: #2e2e2e;
+  padding: 10px;
+  margin: 0 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ebfcec;
+}
+.new-item input[type=text]:focus {
+  outline: 3px solid #7dbf8e;
+}
