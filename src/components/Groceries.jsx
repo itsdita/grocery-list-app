@@ -1,34 +1,31 @@
 import { GROCERIES } from "../data";
 
 /* Groceries component receives the updateList function as a prop*/
-const Groceries = ({ updateList }) => {
+const Groceries = ({ updateList, list }) => {
   /* the funcion handleCheck is called when the checkbox is clicked
   it receives the event and the category name as arguments */
-  function handleCheck(e, category) {
-    /* assign the value of the checkbox to a variable */
-    const item = e.target.value;
+  function handleCheck(e, category, item) {
+    /* isChecked is true if the checkbox is checked, false if it's unchecked */
+    const isChecked = e.target.checked;
 
     updateList((prevList) => {
-     /*  assign the value of the category to a variable or an empty array if the category doesn't exist */
-      let updatedCategory = prevList[category] || [];
+      /* if the category already exists in the list, get the array of items, otherwise create an empty array */
+      const updatedCategory = prevList[category]
+        ? { ...prevList[category] }
+        : {};
 
-      if (e.target.checked) {
-        /* if the event is 'check' spread the updatedCategory array and add the new item */
-        updatedCategory = [...updatedCategory, item];
+      if (isChecked) {
+        updatedCategory[item] = true;
       } else {
-        /* if the event is 'uncheck' filter the updatedCategory array and remove the item */
-        updatedCategory = updatedCategory.filter((i) => i !== item);
+        /* if the item is unchecked, delete it from the updatedCategory object */
+        delete updatedCategory[item];
       }
-      /* new object with the updated category */
-      const newList = { ...prevList };
-      /* if the updatedCategory array has items, add it to the newList object, otherwise delete the category */
-      if (updatedCategory.length > 0) {
-        newList[category] = updatedCategory;
-      } else {
-        delete newList[category];
+
+      if (Object.keys(updatedCategory).length === 0) {
+        const { [category]: _, ...rest } = prevList;
+        return rest;
       }
-      /* return the newList object, which is used as list in Main component */
-      return newList;
+      return { ...prevList, [category]: updatedCategory };
     });
   }
 
@@ -46,9 +43,10 @@ const Groceries = ({ updateList }) => {
             {group.items.map((item, i) => (
               <li key={i}>
                 <input
-                /* passing the event and the category name to handleCheck function */
-                  onChange={(e) => handleCheck(e, group.category)}
+                  /* passing the event and the category name to handleCheck function */
+                  onChange={(e) => handleCheck(e, group.category, item)}
                   type="checkbox"
+                  checked={(list[group.category] && list[group.category][item]) || false}
                   value={item}
                 />
                 {item}

@@ -6,10 +6,14 @@ import "./App.css";
 const App = () => {
   const [list, setList] = useState({});
 
+  const resetList = () => {
+    setList({});
+  };
+
   return (
     <>
-      <Groceries updateList={setList} />
-      <FinalList list={list} updateList={setList} />
+      <Groceries list={list} updateList={setList} />
+      <FinalList list={list} resetList={resetList} />
     </>
   );
 };

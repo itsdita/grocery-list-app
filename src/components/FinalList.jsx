@@ -1,9 +1,9 @@
-const FinalList = ({ list, updateList }) => {
+const FinalList = ({ list, resetList }) => {
   const generateListText = (list) => {
     return Object.keys(list)
       .map(
         (category) =>
-          `${category}:\n${list[category]
+          `${category}:\n${Object.keys(list[category])
             .map((item) => `• ${item}`)
             .join("\n")}`
       )
@@ -26,10 +26,6 @@ const FinalList = ({ list, updateList }) => {
     copyToClipboard(listText);
   };
 
-  const resetList = () => {
-    updateList({});
-  };
-
   return (
     <article>
       <h2>Final List</h2>
@@ -37,7 +33,7 @@ const FinalList = ({ list, updateList }) => {
         <div key={index}>
           <h3>{category}</h3>
           <ul className="final-list">
-            {list[category].map((item, i) => (
+            {Object.keys(list[category]).map((item, i) => (
               <li key={i}>{item}</li>
             ))}
           </ul>
