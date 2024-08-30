@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <Groceries updateList={setList} />
-      <FinalList list={list} />
+      <FinalList list={list} updateList={setList} />
     </>
   );
 };
