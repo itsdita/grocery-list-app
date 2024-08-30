@@ -19,9 +19,7 @@ const NewItem = ({ groceries, addNewItem }) => {
         value={selectedCategory}
         onChange={(e) => setSelectedCategory(e.target.value)}
       >
-        <option value="" disabled>
-          Pick a category
-        </option>
+        <option value="">Pick a category</option>
         {Object.keys(groceries).map((category) => (
           <option key={category} value={category}>
             {category}

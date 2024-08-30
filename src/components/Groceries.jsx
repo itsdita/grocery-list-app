@@ -1,5 +1,9 @@
+import { useState } from "react";
+
 /* Groceries component receives the updateList function as a prop*/
-const Groceries = ({ updateList, groceries, list }) => {
+const Groceries = ({ updateList, setGroceries, groceries, list }) => {
+  const [showDelete, setShowDelete] = useState(false);
+
   /* the funcion handleCheck is called when the checkbox is clicked
   it receives the event and the category name as arguments */
   function handleCheck(e, category, item) {
@@ -29,6 +33,33 @@ const Groceries = ({ updateList, groceries, list }) => {
     });
   }
 
+  const toggleDeleteMode = () => {
+    setShowDelete(!showDelete);
+  };
+
+  const handleDelete = (category, item) => {
+    setGroceries((prevGroceries) => {
+      const updatedGroceries = { ...prevGroceries };
+      updatedGroceries[category] = updatedGroceries[category].filter(
+        (i) => i !== item
+      );
+      if (updatedGroceries[category].length === 0) {
+        delete updatedGroceries[category]; // Optionally remove the category if empty
+      }
+      return updatedGroceries;
+    });
+    updateList((prevList) => {
+      const updatedList = { ...prevList };
+      if (updatedList[category]) {
+        delete updatedList[category][item];
+        if (Object.keys(updatedList[category]).length === 0) {
+          delete updatedList[category];
+        }
+      }
+      return updatedList;
+    });
+  };
+
   return (
     <article className="grocery-list">
       <h2>Groceries</h2>
@@ -51,11 +82,22 @@ const Groceries = ({ updateList, groceries, list }) => {
                     value={item}
                   />
                   {item}
+                  {showDelete && (
+                    <button
+                      className="delete-icon"
+                      onClick={() => handleDelete(category, item)}
+                    >
+                      x
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
         ))}
+        <button onClick={toggleDeleteMode}>
+          {showDelete ? "Hide Delete Items" : "Delete Items"}
+        </button>
       </div>
     </article>
   );

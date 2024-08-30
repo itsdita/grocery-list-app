@@ -49,7 +49,12 @@ const App = () => {
   return (
     <>
       <NewItem groceries={updatedGroceries} addNewItem={addNewItem} />
-      <Groceries groceries={updatedGroceries} list={list} updateList={setList} />
+      <Groceries
+        groceries={updatedGroceries}
+        setGroceries={setGroceries}
+        list={list}
+        updateList={setList}
+      />
       <FinalList list={list} resetList={resetList} />
     </>
   );
