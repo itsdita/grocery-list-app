@@ -60,6 +60,8 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
     });
   };
 
+  const hasItems = Object.values(groceries).some(categoryItems => categoryItems.length > 0);
+
   return (
     <article className="grocery-list">
       <h2>Groceries</h2>
@@ -95,9 +97,11 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
             </ul>
           </div>
         ))}
+        {hasItems && (
         <button onClick={toggleDeleteMode}>
           {showDelete ? "Hide Delete Items" : "Delete Items"}
         </button>
+      )}
       </div>
     </article>
   );
