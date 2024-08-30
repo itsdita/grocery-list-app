@@ -3,6 +3,7 @@ import { useState } from "react";
 /* Groceries component receives the updateList function as a prop*/
 const Groceries = ({ updateList, setGroceries, groceries, list }) => {
   const [showDelete, setShowDelete] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState({});
 
   /* the funcion handleCheck is called when the checkbox is clicked
   it receives the event and the category name as arguments */
@@ -59,8 +60,15 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
       return updatedList;
     });
   };
-
-  const hasItems = Object.values(groceries).some(categoryItems => categoryItems.length > 0);
+  const toggleCategory = (category) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [category]: !prev[category],
+    }));
+  };
+  const hasItems = Object.values(groceries).some(
+    (categoryItems) => categoryItems.length > 0
+  );
 
   return (
     <article className="grocery-list">
@@ -71,37 +79,41 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
         {Object.keys(groceries).map((category, index) => (
           <div key={index} className="category-container">
             {/* accessing the key that holds the name of the category */}
-            <h3>{category}</h3>
-            <ul className="grocery-list">
-              {/* iterating over array of items in a category */}
-              {groceries[category].map((item, i) => (
-                <li key={i}>
-                  <input
-                    /* passing the event and the category name to handleCheck function */
-                    onChange={(e) => handleCheck(e, category, item)}
-                    type="checkbox"
-                    checked={(list[category] && list[category][item]) || false}
-                    value={item}
-                  />
-                  {item}
-                  {showDelete && (
-                    <button
-                      className="delete-icon"
-                      onClick={() => handleDelete(category, item)}
-                    >
-                      x
-                    </button>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <h3 onClick={() => toggleCategory(category)}>{category}</h3>
+            {expandedCategories[category] && (
+              <ul className="grocery-list">
+                {/* iterating over array of items in a category */}
+                {groceries[category].map((item, i) => (
+                  <li key={i}>
+                    <input
+                      /* passing the event and the category name to handleCheck function */
+                      onChange={(e) => handleCheck(e, category, item)}
+                      type="checkbox"
+                      checked={
+                        (list[category] && list[category][item]) || false
+                      }
+                      value={item}
+                    />
+                    {item}
+                    {showDelete && (
+                      <button
+                        className="delete-icon"
+                        onClick={() => handleDelete(category, item)}
+                      >
+                        x
+                      </button>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
         {hasItems && (
-        <button onClick={toggleDeleteMode}>
-          {showDelete ? "Hide Delete Items" : "Delete Items"}
-        </button>
-      )}
+          <button onClick={toggleDeleteMode}>
+            {showDelete ? "Hide Delete Items" : "Delete Items"}
+          </button>
+        )}
       </div>
     </article>
   );
