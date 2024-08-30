@@ -1,7 +1,5 @@
-import { GROCERIES } from "../data";
-
 /* Groceries component receives the updateList function as a prop*/
-const Groceries = ({ updateList, list }) => {
+const Groceries = ({ updateList, groceries, list }) => {
   /* the funcion handleCheck is called when the checkbox is clicked
   it receives the event and the category name as arguments */
   function handleCheck(e, category, item) {
@@ -25,7 +23,9 @@ const Groceries = ({ updateList, list }) => {
         const { [category]: _, ...rest } = prevList;
         return rest;
       }
-      return { ...prevList, [category]: updatedCategory };
+      const a = { ...prevList, [category]: { ...updatedCategory } };
+      console.log(a);
+      return { ...prevList, [category]: { ...updatedCategory } };
     });
   }
 
@@ -35,22 +35,19 @@ const Groceries = ({ updateList, list }) => {
       {/* iterating over all objects in GROCERIES array
       group is category */}
       <div className="grocery-list-container">
-        {GROCERIES.map((group, index) => (
+        {Object.keys(groceries).map((category, index) => (
           <div key={index} className="category-container">
             {/* accessing the key that holds the name of the category */}
-            <h3>{group.category}</h3>
-            <ul>
+            <h3>{category}</h3>
+            <ul className="grocery-list">
               {/* iterating over array of items in a category */}
-              {group.items.map((item, i) => (
+              {groceries[category].map((item, i) => (
                 <li key={i}>
                   <input
                     /* passing the event and the category name to handleCheck function */
-                    onChange={(e) => handleCheck(e, group.category, item)}
+                    onChange={(e) => handleCheck(e, category, item)}
                     type="checkbox"
-                    checked={
-                      (list[group.category] && list[group.category][item]) ||
-                      false
-                    }
+                    checked={(list[category] && list[category][item]) || false}
                     value={item}
                   />
                   {item}
