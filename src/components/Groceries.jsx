@@ -76,6 +76,7 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
       </div>
       <GroceriesManagement
         groceries={groceries}
+        setGroceries={setGroceries}
         showDeleteCategory={showDeleteCategory}
         showDeleteItem={showDeleteItem}
         setShowDeleteCategory={setShowDeleteCategory}

@@ -51,7 +51,10 @@ ul {
   margin-left: 20px;
 }
 
-button {
+button,
+#import-file {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.85rem;
   text-transform: uppercase;
   font-weight: bold;
   padding: 10px;
@@ -62,7 +65,8 @@ button {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-button:hover {
+button:hover,
+#import-file:hover {
   background-color: #7dbf8e;
   color: white;
 }
