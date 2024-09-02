@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { saveToLocalStorage, loadFromLocalStorage } from "./util/storage";
 import Groceries from "./components/Groceries";
 import FinalList from "./components/FinalList";
 import NewItem from "./components/NewItem";
@@ -6,13 +7,23 @@ import { GROCERIES } from "./data";
 import "./App.css";
 
 const App = () => {
-  const [groceries, setGroceries] = useState(
-    GROCERIES.reduce((acc, current) => {
-      acc[current.category] = current.items;
-      return acc;
-    }, {})
+  const [groceries, setGroceries] = useState(() =>
+    loadFromLocalStorage(
+      "groceries",
+      GROCERIES.reduce((acc, current) => {
+        acc[current.category] = current.items;
+        return acc;
+      }, {})
+    )
   );
-  const [list, setList] = useState({});
+  const [list, setList] = useState(() => loadFromLocalStorage("list", {}));
+  useEffect(() => {
+    saveToLocalStorage("groceries", groceries);
+  }, [groceries]);
+
+  useEffect(() => {
+    saveToLocalStorage("list", list);
+  }, [list]);
 
   let updatedGroceries = groceries;
 
