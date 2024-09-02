@@ -15,7 +15,7 @@ h2 {
 h3 {
   text-transform: uppercase;
   margin: 5px 0;
-  background-color: #acdfae;
+  background-color: #acdfc6;
 }
 
 .grocery-list h3 {
@@ -23,7 +23,7 @@ h3 {
   transition: background-color 0.3s;
 }
 .grocery-list h3:hover {
-  background-color: #7dbf8e;
+  background-color: #7dbfa9;
   color: white;
 }
 p {
@@ -35,9 +35,14 @@ article {
   flex-direction: column;
   gap: 10px;
   padding: 0 0 10px;
-  background-color: #c1e7c3;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background: rgba(210, 233, 222, 0.81);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(193, 231, 213, 0.3);
 }
 ul {
   list-style-type: none;
@@ -53,13 +58,13 @@ ul {
 
 button,
 #import-file {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 0.85rem;
   text-transform: uppercase;
   font-weight: bold;
   padding: 10px;
   margin: 0 30px;
-  background-color: #acdfae;
+  background-color: #acdfc6;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -67,7 +72,7 @@ button,
 }
 button:hover,
 #import-file:hover {
-  background-color: #7dbf8e;
+  background-color: #7dbfa0;
   color: white;
 }
 select {
@@ -81,7 +86,7 @@ select {
   transition: background-color 0.3s;
 }
 select:focus {
-  outline: 3px solid #7dbf8e;
+  outline: 3px solid #7dbfa0;
 }
 
 .new-item input {
@@ -93,7 +98,7 @@ select:focus {
   background-color: #ebfcec;
 }
 .new-item input[type="text"]:focus {
-  outline: 3px solid #7dbf8e;
+  outline: 3px solid #7dbfa0e;
 }
 .new-item input::placeholder {
   color: #2e2e2e;
