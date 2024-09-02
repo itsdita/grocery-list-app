@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DOMPurify from "dompurify";
 
 const NewItem = ({ groceries, addNewItem }) => {
   const [newItem, setNewItem] = useState("");
@@ -9,6 +10,27 @@ const NewItem = ({ groceries, addNewItem }) => {
 
   const resetDropdown = () => {
     setSelectedCategory(""); // Resetting to initial state
+  };
+  const handleAddNewItem = () => {
+    if (!newItem.trim() || (!newCategory.trim() && !selectedCategory.trim())) {
+      alert("Please fill in all fields");
+      return;
+    }
+    // Simple regex to allow only letters, numbers, and spaces
+    const validInputRegex = /^[a-zA-Z0-9\s]+$/;
+
+    if (
+      !validInputRegex.test(newItem) ||
+      (!validInputRegex.test(newCategory) && newCategory)
+    ) {
+      alert("Only alphanumeric characters and spaces are allowed");
+      return;
+    }
+
+    const sanitizedItem = DOMPurify.sanitize(newItem);
+    const sanitizedCategory = DOMPurify.sanitize(newCategory);
+
+    addNewItem(sanitizedItem, sanitizedCategory, selectedCategory);
   };
 
   return (
@@ -44,11 +66,7 @@ const NewItem = ({ groceries, addNewItem }) => {
         onChange={(e) => setNewItem(e.target.value)}
         placeholder="Add new item"
       />
-      <button
-        onClick={() => addNewItem(newItem, newCategory, selectedCategory)}
-      >
-        Add Item
-      </button>
+      <button onClick={handleAddNewItem}>Add Item</button>
     </article>
   );
 };
