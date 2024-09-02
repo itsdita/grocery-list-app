@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { handleDeleteItem, handleDeleteCategory } from "../util/delete";
 
 /* Groceries component receives the updateList function as a prop*/
 const Groceries = ({ updateList, setGroceries, groceries, list }) => {
-  const [showDelete, setShowDelete] = useState(false);
+  const [showDeleteItem, setShowDeleteItem] = useState(false);
+  const [showDeleteCategory, setShowDeleteCategory] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState({});
 
   /* the funcion handleCheck is called when the checkbox is clicked
@@ -34,32 +36,13 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
     });
   }
 
-  const toggleDeleteMode = () => {
-    setShowDelete(!showDelete);
+  const toggleDeleteModeItem = () => {
+    setShowDeleteItem(!showDeleteItem);
+  };
+  const toggleDeleteModeCategory = () => {
+    setShowDeleteCategory(!showDeleteCategory);
   };
 
-  const handleDelete = (category, item) => {
-    setGroceries((prevGroceries) => {
-      const updatedGroceries = { ...prevGroceries };
-      updatedGroceries[category] = updatedGroceries[category].filter(
-        (i) => i !== item
-      );
-      if (updatedGroceries[category].length === 0) {
-        delete updatedGroceries[category]; // Optionally remove the category if empty
-      }
-      return updatedGroceries;
-    });
-    updateList((prevList) => {
-      const updatedList = { ...prevList };
-      if (updatedList[category]) {
-        delete updatedList[category][item];
-        if (Object.keys(updatedList[category]).length === 0) {
-          delete updatedList[category];
-        }
-      }
-      return updatedList;
-    });
-  };
   const toggleCategory = (category) => {
     setExpandedCategories((prev) => ({
       ...prev,
@@ -80,6 +63,16 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
           <div key={index} className="category-container">
             {/* accessing the key that holds the name of the category */}
             <h3 onClick={() => toggleCategory(category)}>{category}</h3>
+            {showDeleteCategory && (
+              <button
+                className="delete-icon"
+                onClick={() =>
+                  handleDeleteCategory(category, setGroceries, updateList)
+                }
+              >
+                x
+              </button>
+            )}
             {expandedCategories[category] && (
               <ul className="grocery-list">
                 {/* iterating over array of items in a category */}
@@ -95,10 +88,17 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
                       value={item}
                     />
                     {item}
-                    {showDelete && (
+                    {showDeleteItem && (
                       <button
                         className="delete-icon"
-                        onClick={() => handleDelete(category, item)}
+                        onClick={() =>
+                          handleDeleteItem(
+                            category,
+                            item,
+                            setGroceries,
+                            updateList
+                          )
+                        }
                       >
                         x
                       </button>
@@ -109,11 +109,18 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
             )}
           </div>
         ))}
-        {hasItems && (
-          <button onClick={toggleDeleteMode}>
-            {showDelete ? "Hide Delete Items" : "Delete Items"}
-          </button>
-        )}
+        <div id="delete-btn-container">
+          {hasItems && (
+            <button onClick={toggleDeleteModeItem}>
+              {showDeleteItem ? "Hide Delete Item" : "Delete Item"}
+            </button>
+          )}
+          {!!Object.keys(groceries).length && (
+            <button onClick={toggleDeleteModeCategory}>
+              {showDeleteCategory ? "Hide Delete Category" : "Delete Category"}
+            </button>
+          )}
+        </div>
       </div>
     </article>
   );
