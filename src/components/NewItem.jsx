@@ -36,24 +36,25 @@ const NewItem = ({ groceries, addNewItem }) => {
   return (
     <article className="new-item">
       <h2>Add New Item</h2>
-      <h3>Pick Existing Category</h3>
+      <h3>Category</h3>
       <select
         id="category-dropdown"
         value={selectedCategory}
         onChange={(e) => setSelectedCategory(e.target.value)}
       >
-        <option value="default">Pick a category</option>
+        <option value="default">Select existing category</option>
         {Object.keys(groceries).map((category) => (
           <option key={category} value={category}>
             {category}
           </option>
         ))}
         {newCategory && !groceries[newCategory] && (
-          <option key={newCategory} value={newCategory}>{newCategory}</option>
+          <option key={newCategory} value={newCategory}>
+            {newCategory}
+          </option>
         )}
       </select>
-      <button onClick={resetDropdown}>Reset Category</button>
-      <h3>Add New Category</h3>
+      <button onClick={resetDropdown}>Reset Selection</button>
       <input
         id="new-category"
         type="text"
@@ -61,7 +62,7 @@ const NewItem = ({ groceries, addNewItem }) => {
         onChange={(e) => setNewCategory(e.target.value)}
         placeholder="Enter new category"
       />
-      <h3>Add New Item</h3>
+      <h3>Item</h3>
       <input
         id="new-item"
         type="text"

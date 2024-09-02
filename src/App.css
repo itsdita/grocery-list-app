@@ -105,10 +105,12 @@ select:focus {
   background-color: #da4242;
   color: white;
 }
-.grocery-list-container {
+.grocery-list-container,
+.final-list-container {
   flex-grow: 1;
 }
-#groceries-management-container {
+#groceries-management-container,
+#list-management-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
