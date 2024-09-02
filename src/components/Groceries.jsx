@@ -42,7 +42,9 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
                   <li key={i}>
                     <input
                       /* passing the event and the category name to handleCheck function */
-                      onChange={(e) => handleCheck(e, category, item, updateList)}
+                      onChange={(e) =>
+                        handleCheck(e, category, item, updateList)
+                      }
                       type="checkbox"
                       checked={
                         (list[category] && list[category][item]) || false
@@ -71,14 +73,14 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
             )}
           </div>
         ))}
-        <GroceriesManagement
-          groceries={groceries}
-          showDeleteCategory={showDeleteCategory}
-          showDeleteItem={showDeleteItem}
-          setShowDeleteCategory={setShowDeleteCategory}
-          setShowDeleteItem={setShowDeleteItem}
-        />
       </div>
+      <GroceriesManagement
+        groceries={groceries}
+        showDeleteCategory={showDeleteCategory}
+        showDeleteItem={showDeleteItem}
+        setShowDeleteCategory={setShowDeleteCategory}
+        setShowDeleteItem={setShowDeleteItem}
+      />
     </article>
   );
 };

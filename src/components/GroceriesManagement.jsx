@@ -15,7 +15,8 @@ const GroceriesManagement = ({
     (categoryItems) => categoryItems.length > 0
   );
   return (
-    <div id="delete-btn-container">
+    <section id="groceries-management-container">
+      <h3>Manage Groceries</h3>
       {hasItems && (
         <button onClick={toggleDeleteModeItem}>
           {showDeleteItem ? "Hide Delete Item" : "Delete Item"}
@@ -26,7 +27,7 @@ const GroceriesManagement = ({
           {showDeleteCategory ? "Hide Delete Category" : "Delete Category"}
         </button>
       )}
-    </div>
+    </section>
   );
 };
 

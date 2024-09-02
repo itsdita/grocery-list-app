@@ -1,31 +1,6 @@
+import { handleCopy } from "../util/handleCopy";
+
 const FinalList = ({ list, resetList }) => {
-  const generateListText = (list) => {
-    return Object.keys(list)
-      .map(
-        (category) =>
-          `${category}:\n${Object.keys(list[category])
-            .map((item) => `• ${item}`)
-            .join("\n")}`
-      )
-      .join("\n\n");
-  };
-
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text).then(
-      () => {
-        console.log("Text copied to clipboard");
-      },
-      (err) => {
-        console.error("Failed to copy text: ", err);
-      }
-    );
-  };
-
-  const handleCopy = () => {
-    const listText = generateListText(list);
-    copyToClipboard(listText);
-  };
-
   return (
     <article className="final-list">
       <h2>Final List</h2>
@@ -50,7 +25,8 @@ const FinalList = ({ list, resetList }) => {
           ))}
         </div>
       )}
-      <button onClick={handleCopy}>Copy List</button>
+      <h3>Manage Final List</h3>
+      <button onClick={()=>handleCopy(list)}>Copy List</button>
       <button onClick={resetList}>Reset List</button>
     </article>
   );
