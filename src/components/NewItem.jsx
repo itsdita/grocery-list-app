@@ -17,7 +17,7 @@ const NewItem = ({ groceries, addNewItem }) => {
       return;
     }
     const validInputRegex =
-      /^[a-zA-Z0-9\s\-\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\p{Script=Arabic}]+$/u;
+      /^[a-zA-Z0-9\s\-\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\p{Script=Arabic}\u30FC]+$/u;
 
     if (
       !validInputRegex.test(newItem) ||
