@@ -17,7 +17,8 @@ const NewItem = ({ groceries, addNewItem }) => {
       return;
     }
     // Simple regex to allow only letters, numbers, and spaces
-    const validInputRegex = /^[a-zA-Z0-9\s]+$/;
+    const validInputRegex =
+      /^[a-zA-Z0-9\s\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\p{Script=Arabic}]+$/u;
 
     if (
       !validInputRegex.test(newItem) ||
