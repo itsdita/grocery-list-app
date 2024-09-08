@@ -1,5 +1,6 @@
 import { handleCopy } from "../util/handleCopy";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import DOMPurify from "dompurify";
 
 const FinalList = ({ list, resetList }) => {
   const [amounts, setAmounts] = useState({});
@@ -10,23 +11,33 @@ const FinalList = ({ list, resetList }) => {
     Object.keys(list).forEach((category) => {
       newAmounts[category] = {};
       Object.keys(list[category]).forEach((item) => {
-        newAmounts[category][item] = amounts[category]?.[item] || ""; // Preserve previous amounts if any
+        newAmounts[category][item] = amounts[category]?.[item] || "";
       });
     });
     setAmounts(newAmounts);
   }, [list]);
 
+  // Regex to validate input: only letters, numbers and whitespaces from any language
+  const validInputRegex = /^[\p{L}\p{N}\s]*$/u;
+
+  const sanitizeAndValidateInput = (value) => {
+    if (validInputRegex.test(value)) {
+      return DOMPurify.sanitize(value); // Sanitize the input only if it is valid
+    } else {
+      return ""; // Return an empty string if the input is invalid
+    }
+  };
+
   const updateAmount = (category, item, value) => {
+    const sanitizedValue = sanitizeAndValidateInput(value);
     setAmounts((prev) => ({
       ...prev,
       [category]: {
         ...prev[category],
-        [item]: value,
+        [item]: sanitizedValue,
       },
     }));
   };
-
-  console.log(amounts);
 
   return (
     <article className="final-list">
@@ -45,7 +56,7 @@ const FinalList = ({ list, resetList }) => {
               <h3>{category}</h3>
               <ul>
                 {Object.keys(list[category]).map((item, i) => (
-                  <span>
+                  <span key={i}>
                     <li key={i} className="final-list-item">
                       {item}
                     </li>

@@ -3,7 +3,10 @@ const generateListText = (list, amounts) => {
     .map(
       (category) =>
         `${category}:\n${Object.keys(list[category])
-          .map((item) => `• ${item}, ${amounts[category][item]}`)
+          .map((item) => {
+            const amount = amounts[category][item];
+            return amount ? `• ${item} (${amount})` : `• ${item}`;
+          })
           .join("\n")}`
     )
     .join("\n\n");
