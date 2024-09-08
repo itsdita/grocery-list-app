@@ -1,13 +1,14 @@
-const generateListText = (list) => {
+const generateListText = (list, amounts) => {
   return Object.keys(list)
     .map(
       (category) =>
         `${category}:\n${Object.keys(list[category])
-          .map((item) => `• ${item}`)
+          .map((item) => `• ${item}, ${amounts[category][item]}`)
           .join("\n")}`
     )
     .join("\n\n");
 };
+
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text).then(
     () => {
@@ -19,8 +20,8 @@ const copyToClipboard = (text) => {
   );
 };
 
-export const handleCopy = (list) => {
-  const listText = generateListText(list);
+export const handleCopy = (list, amounts) => {
+  const listText = generateListText(list, amounts);
   copyToClipboard(listText);
   // Create and show notification
   showCopyNotification();
