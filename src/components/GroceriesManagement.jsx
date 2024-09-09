@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { exportGroceries, handleFileChange } from "../util/fileImportExport";
 
 const GroceriesManagement = ({
@@ -8,6 +10,8 @@ const GroceriesManagement = ({
   setShowDeleteCategory,
   setShowDeleteItem,
 }) => {
+  const [isContentVisible, setIsContentVisible] = useState(false);
+
   const toggleDeleteModeItem = () => {
     setShowDeleteItem(!showDeleteItem);
   };
@@ -18,32 +22,43 @@ const GroceriesManagement = ({
     (categoryItems) => categoryItems.length > 0
   );
 
+  const toggleContentVisibility = () => {
+    setIsContentVisible(!isContentVisible);
+  };
+
   return (
     <section id="groceries-management-container">
-      <h3>Manage Groceries</h3>
-      <button onClick={() => exportGroceries(groceries)}>
-        Export Grocery List
-      </button>
-      <div id="import-file">
-        <input
-          type="file"
-          id="fileInput"
-          onChange={()=>handleFileChange(event,setGroceries)}
-          style={{ display: "none" }}
-        />
-        <label htmlFor="fileInput" style={{ cursor: "pointer" }}>
-          Import Grocery List
-        </label>
-      </div>
-      {hasItems && (
-        <button onClick={toggleDeleteModeItem}>
-          {showDeleteItem ? "Hide Delete Item" : "Delete Item"}
-        </button>
-      )}
-      {!!Object.keys(groceries).length && (
-        <button onClick={toggleDeleteModeCategory}>
-          {showDeleteCategory ? "Hide Delete Category" : "Delete Category"}
-        </button>
+      <h3 onClick={toggleContentVisibility} style={{ cursor: "pointer" }}>
+        Manage Groceries{" "}
+        <span style={{ color: "#7dbfa0" }}>{isContentVisible ? "▼" : "▲"}</span>
+      </h3>
+      {isContentVisible && (
+        <>
+          <button onClick={() => exportGroceries(groceries)}>
+            Export Grocery List
+          </button>
+          <div id="import-file">
+            <input
+              type="file"
+              id="fileInput"  
+              onChange={()=>handleFileChange(event, setGroceries)}
+              style={{ display: "none" }}
+            />
+            <label htmlFor="fileInput" style={{ cursor: "pointer" }}>
+              Import Grocery List
+            </label>
+          </div>
+          {hasItems && (
+            <button onClick={toggleDeleteModeItem}>
+              {showDeleteItem ? "Hide Delete Item" : "Delete Item"}
+            </button>
+          )}
+          {!!Object.keys(groceries).length && (
+            <button onClick={toggleDeleteModeCategory}>
+              {showDeleteCategory ? "Hide Delete Category" : "Delete Category"}
+            </button>
+          )}
+        </>
       )}
     </section>
   );

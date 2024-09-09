@@ -1,6 +1,7 @@
 #root {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  max-width: 1024px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -30,10 +31,10 @@ p {
   margin: 20px 10px;
 }
 article {
-  width: 320px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 320px;
   padding: 0 0 10px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -55,7 +56,7 @@ ul {
   list-style-type: disc;
   margin-left: 20px;
 }
-.final-list span {
+.final-list-container span {
   display: flex;
   justify-content: space-between;
   align-items: center;

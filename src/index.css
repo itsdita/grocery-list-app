@@ -15,9 +15,8 @@
 
 body {
   margin: 0;
-  display: flex;
-  place-items: start;
-  min-width: 320px;
+  padding: 0;
+  align-items: center;
   min-height: 100vh;
   background-image: url(./assets/background-img.png);
   background-size: cover;

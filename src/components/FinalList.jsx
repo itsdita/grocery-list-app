@@ -65,7 +65,6 @@ const FinalList = ({ list, resetList }) => {
         </div>
       )}
       <section id="list-management-container">
-        <h3>Manage Final List</h3>
         <button onClick={() => handleCopy(list, amounts)}>Copy List</button>
         <button onClick={resetList}>Reset List</button>
       </section>
