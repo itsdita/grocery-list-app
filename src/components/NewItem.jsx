@@ -1,5 +1,6 @@
 import { useState } from "react";
-import DOMPurify from "dompurify";
+
+import { sanitizeAndValidateInput } from "../util/sanitizeValidateInput";
 
 const NewItem = ({ groceries, addNewItem }) => {
   const [newItem, setNewItem] = useState("");
@@ -16,19 +17,9 @@ const NewItem = ({ groceries, addNewItem }) => {
       alert("Please fill in all fields");
       return;
     }
-    const validInputRegex =
-      /^[a-zA-Z0-9\s\-\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}\p{Script=Arabic}\u30FC]+$/u;
 
-    if (
-      !validInputRegex.test(newItem) ||
-      (!validInputRegex.test(newCategory) && newCategory)
-    ) {
-      alert("Only alphanumeric characters and spaces are allowed");
-      return;
-    }
-
-    const sanitizedItem = DOMPurify.sanitize(newItem);
-    const sanitizedCategory = DOMPurify.sanitize(newCategory);
+    const sanitizedItem = sanitizeAndValidateInput(newItem);
+    const sanitizedCategory = sanitizeAndValidateInput(newCategory);
 
     addNewItem(sanitizedItem, sanitizedCategory, selectedCategory);
   };

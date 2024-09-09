@@ -1,6 +1,7 @@
-import { handleCopy } from "../util/handleCopy";
 import React, { useState, useEffect } from "react";
-import DOMPurify from "dompurify";
+
+import { handleCopy } from "../util/handleCopy";
+import { sanitizeAndValidateInput } from "../util/sanitizeValidateInput";
 
 const FinalList = ({ list, resetList }) => {
   const [amounts, setAmounts] = useState({});
@@ -16,17 +17,6 @@ const FinalList = ({ list, resetList }) => {
     });
     setAmounts(newAmounts);
   }, [list]);
-
-  // Regex to validate input: only letters, numbers and whitespaces from any language
-  const validInputRegex = /^[\p{L}\p{N}\s]*$/u;
-
-  const sanitizeAndValidateInput = (value) => {
-    if (validInputRegex.test(value)) {
-      return DOMPurify.sanitize(value); // Sanitize the input only if it is valid
-    } else {
-      return ""; // Return an empty string if the input is invalid
-    }
-  };
 
   const updateAmount = (category, item, value) => {
     const sanitizedValue = sanitizeAndValidateInput(value);
