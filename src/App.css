@@ -1,10 +1,13 @@
 #root {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  max-width: 1024px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, max-content));
+  max-width: 980px;
+  justify-items: center;
+  justify-content: center;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  align-items: stretch;
   gap: 10px;
 }
 
@@ -34,7 +37,7 @@ article {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 320px;
+  width: 320px;
   padding: 0 0 10px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -62,7 +65,8 @@ ul {
   align-items: center;
 }
 .final-list input {
-  width: 50px;
+  width: 80px;
+  padding: 2px 5px;
   color: #2e2e2e;
   border: none;
   border-radius: 5px;
