@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { sanitizeAndValidateInput } from "../util/sanitizeValidateInput";
 
-const NewItem = ({ groceries, addNewItem }) => {
+const NewItem = ({ groceries, addNewItem, addNewItemToggle }) => {
   const [newItem, setNewItem] = useState("");
 
   const [newCategory, setNewCategory] = useState("");
@@ -25,7 +25,7 @@ const NewItem = ({ groceries, addNewItem }) => {
   };
 
   return (
-    <article className="new-item">
+    <article ref={addNewItemToggle} className="new-item">
       <h2>Add New Item</h2>
       <h3>Category</h3>
       <select

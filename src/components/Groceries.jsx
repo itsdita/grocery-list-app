@@ -3,7 +3,14 @@ import { handleDeleteItem, handleDeleteCategory } from "../util/handleDelete";
 import { handleCheck } from "../util/handleCheck";
 import GroceriesManagement from "./GroceriesManagement";
 
-const Groceries = ({ updateList, setGroceries, groceries, list }) => {
+const Groceries = ({
+  updateList,
+  setGroceries,
+  groceries,
+  list,
+  isAddNewItemVisible,
+  setAddNewItemVisible,
+}) => {
   const [showDeleteItem, setShowDeleteItem] = useState(false);
   const [showDeleteCategory, setShowDeleteCategory] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState({});
@@ -32,7 +39,7 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
                   handleDeleteCategory(category, setGroceries, updateList)
                 }
               >
-                x
+                X
               </button>
             )}
             {expandedCategories[category] && (
@@ -64,7 +71,7 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
                           )
                         }
                       >
-                        x
+                        X
                       </button>
                     )}
                   </li>
@@ -81,6 +88,8 @@ const Groceries = ({ updateList, setGroceries, groceries, list }) => {
         showDeleteItem={showDeleteItem}
         setShowDeleteCategory={setShowDeleteCategory}
         setShowDeleteItem={setShowDeleteItem}
+        isAddNewItemVisible={isAddNewItemVisible}
+        setAddNewItemVisible={setAddNewItemVisible}
       />
     </article>
   );

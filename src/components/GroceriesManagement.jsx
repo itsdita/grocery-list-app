@@ -9,6 +9,8 @@ const GroceriesManagement = ({
   showDeleteItem,
   setShowDeleteCategory,
   setShowDeleteItem,
+  isAddNewItemVisible,
+  setAddNewItemVisible,
 }) => {
   const [isContentVisible, setIsContentVisible] = useState(false);
 
@@ -25,6 +27,9 @@ const GroceriesManagement = ({
   const toggleContentVisibility = () => {
     setIsContentVisible(!isContentVisible);
   };
+  const toggleAddNewItem = () => {
+    setAddNewItemVisible(!isAddNewItemVisible);
+  };
 
   return (
     <section id="groceries-management-container">
@@ -34,14 +39,15 @@ const GroceriesManagement = ({
       </h3>
       {isContentVisible && (
         <>
+          <button onClick={toggleAddNewItem}>Add New Item</button>
           <button onClick={() => exportGroceries(groceries)}>
             Export Grocery List
           </button>
           <div id="import-file">
             <input
               type="file"
-              id="fileInput"  
-              onChange={()=>handleFileChange(event, setGroceries)}
+              id="fileInput"
+              onChange={() => handleFileChange(event, setGroceries)}
               style={{ display: "none" }}
             />
             <label htmlFor="fileInput" style={{ cursor: "pointer" }}>
