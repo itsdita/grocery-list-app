@@ -6,30 +6,33 @@ const GroceriesManagement = ({
   groceries,
   setGroceries,
   showDeleteCategory,
-  showDeleteItem,
   setShowDeleteCategory,
+  showDeleteItem,
   setShowDeleteItem,
   isAddNewItemVisible,
   setAddNewItemVisible,
 }) => {
   const [isContentVisible, setIsContentVisible] = useState(false);
 
-  const toggleDeleteModeItem = () => {
-    setShowDeleteItem(!showDeleteItem);
-  };
-  const toggleDeleteModeCategory = () => {
-    setShowDeleteCategory(!showDeleteCategory);
-  };
-  const hasItems = Object.values(groceries).some(
-    (categoryItems) => categoryItems.length > 0
-  );
-
   const toggleContentVisibility = () => {
     setIsContentVisible(!isContentVisible);
   };
+
   const toggleAddNewItem = () => {
     setAddNewItemVisible(!isAddNewItemVisible);
   };
+
+  const toggleDeleteModeItem = () => {
+    setShowDeleteItem(!showDeleteItem);
+  };
+
+  const toggleDeleteModeCategory = () => {
+    setShowDeleteCategory(!showDeleteCategory);
+  };
+
+  const hasItems = Object.values(groceries).some(
+    (categoryItems) => categoryItems.length > 0
+  );
 
   return (
     <section id="groceries-management-container">

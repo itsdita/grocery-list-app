@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { saveToLocalStorage, loadFromLocalStorage } from "./util/storage";
 import Groceries from "./components/Groceries";
 import FinalList from "./components/FinalList";
@@ -44,7 +44,6 @@ const App = () => {
           updatedGroceries[category].push(item);
         }
       }
-      console.log(updatedGroceries);
       return updatedGroceries;
     });
   };
@@ -58,12 +57,6 @@ const App = () => {
     setList({});
   };
 
-  const handleToggleClass = () => {
-    if (addNewItemToggle.current) {
-      addNewItemToggle.current.classList.toggle("hide");
-    }
-  };
-
   return (
     <>
       {isAddNewItemVisible && (
@@ -72,7 +65,6 @@ const App = () => {
       <Groceries
         isAddNewItemVisible={isAddNewItemVisible}
         setAddNewItemVisible={setAddNewItemVisible}
-        handleToggleClass={handleToggleClass}
         groceries={updatedGroceries}
         setGroceries={setGroceries}
         list={list}

@@ -51,6 +51,7 @@ const FinalList = ({ list, resetList }) => {
                       {item}
                     </li>
                     <input
+                      name={item}
                       type="text"
                       value={amounts[category]?.[item] || 0}
                       onChange={(e) =>

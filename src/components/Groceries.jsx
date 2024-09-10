@@ -47,7 +47,7 @@ const Groceries = ({
                 {/* iterating over array of items in a category */}
                 {groceries[category].map((item, i) => (
                   <li key={i}>
-                    <input
+                    <input name={item}
                       /* passing the event and the category name to handleCheck function */
                       onChange={(e) =>
                         handleCheck(e, category, item, updateList)
