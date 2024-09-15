@@ -1,0 +1,9 @@
+#history-container li {
+    list-style-type: none;
+    margin: 0;
+}
+
+#history-container button {
+    padding: 5px;
+    margin: 5px;
+}

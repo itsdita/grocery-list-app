@@ -37,8 +37,7 @@ const GroceriesManagement = ({
   return (
     <section id="groceries-management-container">
       <h3 onClick={toggleContentVisibility} style={{ cursor: "pointer" }}>
-        Manage Groceries{" "}
-        <span style={{ color: "#7dbfa0" }}>{isContentVisible ? "▼" : "▲"}</span>
+        <span style={{ color: "#7dbfa0" }}>{isContentVisible ? '▼' : '▶'}</span> Manage Groceries
       </h3>
       {isContentVisible && (
         <>

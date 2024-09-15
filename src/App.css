@@ -28,11 +28,13 @@ h3 {
   border: 1px solid rgba(193, 231, 213, 0.3);
 }
 
-.grocery-list h3 {
+.grocery-list h3,
+#history-container h3 {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.grocery-list h3:hover {
+.grocery-list h3:hover,
+#history-container h3:hover {
   background-color: #7dbfa9;
   border: 1px solid rgba(193, 231, 213, 0.3);
   color: white;

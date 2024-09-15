@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-
 import { handleCopy } from "../util/handleCopy";
 import { sanitizeAndValidateInput } from "../util/sanitizeValidateInput";
-
+import FinalListHistory from "./FinalListHistory";
 const FinalList = ({ list, resetList }) => {
   const [amounts, setAmounts] = useState({});
 
@@ -29,6 +28,21 @@ const FinalList = ({ list, resetList }) => {
     }));
   };
 
+  // Function to save the current list and amounts to local storage
+  const saveListToHistory = () => {
+    // Get existing history from local storage
+    const existingHistory = JSON.parse(localStorage.getItem("history")) || [];
+
+    // Create an entry with the current list and amounts
+    const newEntry = { list, amounts, date: new Date().toISOString() };
+
+    // Add the new entry to the history
+    existingHistory.push(newEntry);
+
+    // Save back to local storage
+    localStorage.setItem("history", JSON.stringify(existingHistory));
+  };
+
   return (
     <article className="final-list">
       <h2>Final List</h2>
@@ -47,9 +61,7 @@ const FinalList = ({ list, resetList }) => {
               <ul>
                 {Object.keys(list[category]).map((item, i) => (
                   <span key={i}>
-                    <li key={i} className="final-list-item">
-                      {item}
-                    </li>
+                    <li className="final-list-item">{item}</li>
                     <input
                       name={item}
                       type="text"
@@ -67,8 +79,10 @@ const FinalList = ({ list, resetList }) => {
       )}
       <section id="list-management-container">
         <button onClick={() => handleCopy(list, amounts)}>Copy List</button>
+        <button onClick={saveListToHistory}>Save to History</button>
         <button onClick={resetList}>Reset List</button>
       </section>
+      <FinalListHistory />
     </article>
   );
 };
