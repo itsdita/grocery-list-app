@@ -1,0 +1,39 @@
+/* GLOBAL BUTTON STYLES */
+button,
+#import-file {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 10px;
+  margin: 0 30px;
+  background-color: #acdfc6;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+button:hover,
+#import-file:hover,
+.grocery-list h3:hover,
+#history-container h3:hover,
+#back-to-main-menu button:hover {
+  background-color: rgba(0, 123, 82, 0.3);
+  color: white;
+}
+
+/* GROCERY APP
+Category Buttons */
+.grocery-list h3,
+#history-container h3 {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#back-to-main-menu button {
+  background: rgba(210, 233, 222, 0.81);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(193, 231, 213, 0.3);
+  transition: background-color 0.3s;
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { handleCopy } from "../util/handleCopy";
-import { sanitizeAndValidateInput } from "../util/sanitizeValidateInput";
+import { handleCopy } from "./util/handleCopy";
+import { sanitizeAndValidateInput } from "./util/sanitizeValidateInput";
 
 const FinalList = ({ list, resetList, history, setHistory }) => {
   const [amounts, setAmounts] = useState({});

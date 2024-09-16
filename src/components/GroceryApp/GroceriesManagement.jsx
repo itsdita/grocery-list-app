@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { exportGroceries, handleFileChange } from "../util/fileImportExport";
+import { exportGroceries, handleFileChange } from "./util/fileImportExport";
 
 const GroceriesManagement = ({
   groceries,

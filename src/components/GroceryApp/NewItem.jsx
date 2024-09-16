@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { sanitizeAndValidateInput } from "../util/sanitizeValidateInput";
+import { sanitizeAndValidateInput } from "./util/sanitizeValidateInput";
 
 const NewItem = ({ groceries, addNewItem, addNewItemToggle }) => {
   const [newItem, setNewItem] = useState("");

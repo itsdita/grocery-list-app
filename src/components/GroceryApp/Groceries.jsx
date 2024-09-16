@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { handleDeleteItem, handleDeleteCategory } from "../util/handleDelete";
-import { handleCheck } from "../util/handleCheck";
+import { handleDeleteItem, handleDeleteCategory } from "./util/handleDelete";
+import { handleCheck } from "./util/handleCheck";
 import GroceriesManagement from "./GroceriesManagement";
 
 const Groceries = ({
