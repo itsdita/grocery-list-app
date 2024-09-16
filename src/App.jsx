@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { saveToLocalStorage, loadFromLocalStorage } from "./util/storage";
 import Groceries from "./components/Groceries";
 import FinalList from "./components/FinalList";
+import FinalListHistory from "./components/FinalListHistory";
 import NewItem from "./components/NewItem";
 import { GROCERIES } from "./data";
 import "./App.css";
 
 const App = () => {
+  const [history, setHistory] = useState([]);
   const [isAddNewItemVisible, setAddNewItemVisible] = useState(false);
   const [groceries, setGroceries] = useState(() =>
     loadFromLocalStorage(
@@ -57,6 +59,12 @@ const App = () => {
     setList({});
   };
 
+    // Fetch history from local storage when the app mounts
+    useEffect(() => {
+      const storedHistory = JSON.parse(localStorage.getItem("history")) || [];
+      setHistory(storedHistory);
+    }, []);
+
   return (
     <>
       {isAddNewItemVisible && (
@@ -70,7 +78,10 @@ const App = () => {
         list={list}
         updateList={setList}
       />
-      <FinalList list={list} resetList={resetList} />
+      <article className="final-list">
+        <FinalList list={list} resetList={resetList} history={history} setHistory={setHistory}/>
+        <FinalListHistory history={history} setHistory={setHistory} />
+      </article>
     </>
   );
 };
