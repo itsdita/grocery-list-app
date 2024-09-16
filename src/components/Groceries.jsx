@@ -8,7 +8,7 @@ const Groceries = ({
   setGroceries,
   groceries,
   list,
-  isAddNewItemVisible,
+  addNewItemVisible,
   setAddNewItemVisible,
 }) => {
   const [showDeleteItem, setShowDeleteItem] = useState(false);
@@ -88,7 +88,7 @@ const Groceries = ({
         showDeleteItem={showDeleteItem}
         setShowDeleteCategory={setShowDeleteCategory}
         setShowDeleteItem={setShowDeleteItem}
-        isAddNewItemVisible={isAddNewItemVisible}
+        addNewItemVisible={addNewItemVisible}
         setAddNewItemVisible={setAddNewItemVisible}
       />
     </article>

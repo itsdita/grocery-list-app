@@ -9,7 +9,7 @@ import "./App.css";
 
 const App = () => {
   const [history, setHistory] = useState([]);
-  const [isAddNewItemVisible, setAddNewItemVisible] = useState(false);
+  const [addNewItemVisible, setAddNewItemVisible] = useState(false);
   const [groceries, setGroceries] = useState(() =>
     loadFromLocalStorage(
       "groceries",
@@ -67,11 +67,11 @@ const App = () => {
 
   return (
     <>
-      {isAddNewItemVisible && (
+      {addNewItemVisible && (
         <NewItem groceries={updatedGroceries} addNewItem={addNewItem} />
       )}
       <Groceries
-        isAddNewItemVisible={isAddNewItemVisible}
+        addNewItemVisible={addNewItemVisible}
         setAddNewItemVisible={setAddNewItemVisible}
         groceries={updatedGroceries}
         setGroceries={setGroceries}

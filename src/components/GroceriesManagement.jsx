@@ -9,26 +9,10 @@ const GroceriesManagement = ({
   setShowDeleteCategory,
   showDeleteItem,
   setShowDeleteItem,
-  isAddNewItemVisible,
+  addNewItemVisible,
   setAddNewItemVisible,
 }) => {
   const [isContentVisible, setIsContentVisible] = useState(false);
-
-  const toggleContentVisibility = () => {
-    setIsContentVisible(!isContentVisible);
-  };
-
-  const toggleAddNewItem = () => {
-    setAddNewItemVisible(!isAddNewItemVisible);
-  };
-
-  const toggleDeleteModeItem = () => {
-    setShowDeleteItem(!showDeleteItem);
-  };
-
-  const toggleDeleteModeCategory = () => {
-    setShowDeleteCategory(!showDeleteCategory);
-  };
 
   const hasItems = Object.values(groceries).some(
     (categoryItems) => categoryItems.length > 0
@@ -36,12 +20,12 @@ const GroceriesManagement = ({
 
   return (
     <section id="groceries-management-container">
-      <h3 onClick={toggleContentVisibility} style={{ cursor: "pointer" }}>
+      <h3 onClick={()=>setIsContentVisible(!isContentVisible)} style={{ cursor: "pointer" }}>
         <span style={{ color: "#7dbfa0" }}>{isContentVisible ? '▼' : '▶'}</span> Manage Groceries
       </h3>
       {isContentVisible && (
         <>
-          <button onClick={toggleAddNewItem}>Add New Item</button>
+          <button onClick={()=>setAddNewItemVisible(!addNewItemVisible)}>{!addNewItemVisible? "Add New Item":"Hide Add New Item"}</button>
           <button onClick={() => exportGroceries(groceries)}>
             Export Grocery List
           </button>
@@ -57,12 +41,12 @@ const GroceriesManagement = ({
             </label>
           </div>
           {hasItems && (
-            <button onClick={toggleDeleteModeItem}>
+            <button onClick={()=>setShowDeleteItem(!showDeleteItem)}>
               {showDeleteItem ? "Hide Delete Item" : "Delete Item"}
             </button>
           )}
           {!!Object.keys(groceries).length && (
-            <button onClick={toggleDeleteModeCategory}>
+            <button onClick={()=>setShowDeleteCategory(!showDeleteCategory)}>
               {showDeleteCategory ? "Hide Delete Category" : "Delete Category"}
             </button>
           )}
