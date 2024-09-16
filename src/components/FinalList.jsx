@@ -4,6 +4,7 @@ import { sanitizeAndValidateInput } from "../util/sanitizeValidateInput";
 
 const FinalList = ({ list, resetList, history, setHistory }) => {
   const [amounts, setAmounts] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Initialize amounts state when the list updates
   useEffect(() => {
@@ -30,6 +31,11 @@ const FinalList = ({ list, resetList, history, setHistory }) => {
 
   // Function to save the current list and amounts to local storage and update history state
   const saveListToHistory = () => {
+    if (Object.keys(list).length === 0) {
+      alert("There are no items to save to history.");
+      return;
+    }
+
     const newEntry = { list, amounts, date: new Date().toISOString() };
     const updatedHistory = [...history, newEntry];
 
@@ -38,6 +44,8 @@ const FinalList = ({ list, resetList, history, setHistory }) => {
 
     // Update history state
     setHistory(updatedHistory);
+    // Clear any existing error messages
+    setErrorMessage("");
   };
 
   return (
