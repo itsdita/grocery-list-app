@@ -4,7 +4,7 @@ import "./FinalListHistory.css";
 const FinalListHistory = () => {
   const [history, setHistory] = useState([]);
   const [expandedEntries, setExpandedEntries] = useState({});
-  const [isHistoryVisible, setIsHistoryVisible] = useState(true); // Add visibility state
+  const [isHistoryVisible, setIsHistoryVisible] = useState(false); // Add visibility state
 
   // Fetch history from local storage when the component mounts
   useEffect(() => {
@@ -42,7 +42,7 @@ const FinalListHistory = () => {
               const isExpanded = expandedEntries[index];
 
               return (
-                <li key={index}>
+                <div className="date-list" key={index}>
                   <button
                     onClick={() => toggleExpanded(index)}
                     className="date-button"
@@ -65,7 +65,7 @@ const FinalListHistory = () => {
                       ))}
                     </div>
                   )}
-                </li>
+                </div>
               );
             })}
           </ul>
