@@ -1,5 +1,5 @@
 #recipe-app-container {
-    padding: 32px;
+  padding: 32px;
 }
 
 .recipe-app {
@@ -22,62 +22,47 @@
   text-align: center;
   margin-bottom: 20px;
 }
-.recipe-app h1{
-    text-align: center;
+.recipe-app h1 {
+  text-align: center;
 }
-
-.recipe-form,
-.recipe-search,
-.recipe-list,
-.recipe-detail {
-  margin-bottom: 30px;
+.recipe-item-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  justify-items: center;
+  justify-content: center;
+  align-items: stretch;
+  text-align: center;
 }
-
-.recipe-form form,
-.recipe-search form {
+.recipe-item {
   display: flex;
   flex-direction: column;
-}
-
-.recipe-form label,
-.recipe-search label {
-  margin-bottom: 5px;
-}
-
-.recipe-form input,
-.recipe-form textarea,
-.recipe-search input {
-  margin-bottom: 10px;
-  padding: 8px;
-  font-size: 1em;
-}
-
-.recipe-form button,
-.recipe-search button,
-.recipe-list button {
-  padding: 10px;
-  font-size: 1em;
+  position: relative;
+  border-radius: 16px;
+  background: rgba(210, 233, 222, 0.6);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   cursor: pointer;
 }
-
-.recipe-list ul {
-  list-style-type: none;
+.recipe-image {
+  border-radius: 16px 16px 0 0;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.recipe-name {
+  text-transform: Capitalize;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.recipe-item-button {
+  position: absolute;
+  margin: 0;
   padding: 0;
-}
-
-.recipe-list li {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.recipe-list span {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
   cursor: pointer;
-  color: blue;
-  text-decoration: underline;
-}
-
-.recipe-detail ul {
-  list-style-type: disc;
-  padding-left: 20px;
 }

@@ -50,7 +50,7 @@ const RecipeApp = () => {
   return (
     <div id="recipe-app-container">
       <div className="recipe-app">
-        <h1>My Recipe Organizer</h1>
+        <h2>My Recipe Organizer</h2>
         <RecipeList
           recipes={searchResults.length > 0 ? searchResults : recipes}
           selectRecipe={selectRecipe}
