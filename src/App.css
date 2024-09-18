@@ -91,8 +91,11 @@ select {
 select:focus {
   outline: 3px solid #7dbfa0;
 }
+textarea {
+  resize: none;
+}
 
-.new-item input {
+input, textarea {
   color: #2e2e2e;
   padding: 10px;
   margin: 0 30px;
@@ -100,10 +103,12 @@ select:focus {
   border-radius: 5px;
   background-color: #ebfcec;
 }
-.new-item input[type="text"]:focus {
+input[type="text"]:focus,
+textarea:focus {
   outline: 3px solid #7dbfa0;
 }
-.new-item input::placeholder {
+input::placeholder,
+textarea::placeholder {
   color: #2e2e2e;
 }
 .delete-icon {

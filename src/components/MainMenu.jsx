@@ -14,7 +14,7 @@ const MainMenu = () => {
         <div className="menu-button" onClick={() => handleClick("/grocery")}>
           <h2>Grocery Shopping</h2>
         </div>
-        <div className="menu-button">
+        <div className="menu-button" onClick={() => handleClick("/cooking")}>
           <h2>Cooking</h2>
         </div>
         <div className="menu-button">
