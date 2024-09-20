@@ -64,9 +64,10 @@ const RecipeApp = () => {
         <RecipeList
           recipes={searchResults.length > 0 ? searchResults : recipes}
           selectRecipe={selectRecipe}
-          deleteRecipe={deleteRecipe}
         />
-        {selectedRecipe && <RecipeDetail recipe={selectedRecipe} />}
+        {selectedRecipe && (
+          <RecipeDetail recipe={selectedRecipe} deleteRecipe={deleteRecipe} />
+        )}
         <RecipeSearch searchRecipes={searchRecipes} />
         <RecipeForm addRecipe={addRecipe} />
       </div>

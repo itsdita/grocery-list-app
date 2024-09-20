@@ -8,14 +8,18 @@ const RecipeForm = ({ addRecipe }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !ingredients) {
+    if (!title || !ingredients || !instructions) {
       alert("Please fill in all fields");
       return;
     }
     const titleSanitized = sanitizeAndValidateInput(title);
     const ingredientsSanitized = sanitizeAndValidateInput(ingredients);
     const instructionsSanitized = sanitizeAndValidateInput(instructions);
-
+    
+    if (!titleSanitized || !ingredientsSanitized || !instructionsSanitized) {
+      alert("Please enter valid input");
+      return;
+    }
     const newRecipe = {
       id: Date.now(),
       title: titleSanitized,
