@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { sanitizeAndValidateInput } from "../../global-util/sanitizeValidateInput";
 
 const RecipeSearch = ({ searchRecipes }) => {
   const [searchIngredients, setSearchIngredients] = useState('');
@@ -7,7 +8,8 @@ const RecipeSearch = ({ searchRecipes }) => {
     e.preventDefault();
     if (!searchIngredients) return;
 
-    const ingredientsArray = searchIngredients
+    const sanitizedSearchIngredients = sanitizeAndValidateInput(searchIngredients);
+    const ingredientsArray = sanitizedSearchIngredients
       .toLowerCase()
       .split(',')
       .map((ing) => ing.trim());

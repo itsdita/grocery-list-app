@@ -35,8 +35,6 @@ const GroceryApp = () => {
   const addNewItem = (item, category, selectedCategory) => {
     setGroceries((groceries) => {
       const updatedGroceries = { ...groceries };
-      console.log(selectedCategory);
-      console.log(item);
 
       if (updatedGroceries[selectedCategory]) {
         if (!updatedGroceries[selectedCategory].includes(item)) {

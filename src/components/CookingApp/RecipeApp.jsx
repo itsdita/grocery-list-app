@@ -4,18 +4,28 @@ import RecipeForm from "./RecipeForm";
 import RecipeDetail from "./RecipeDetail";
 import RecipeSearch from "./RecipeSearch";
 
+import { RECIPE_DATA } from "./recipe-data";
+
 import "./RecipeApp.css";
 
 const RecipeApp = () => {
-  const [recipes, setRecipes] = useState([]);
+  const [recipes, setRecipes] = useState(() => {
+    // Load recipes from localStorage
+    const storedRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
+
+    // If there are no recipes in localStorage, use RECIPE_DATA
+    if (storedRecipes.length === 0) {
+      // Save RECIPE_DATA to localStorage
+      localStorage.setItem("recipes", JSON.stringify(RECIPE_DATA));
+      return RECIPE_DATA;
+    } else {
+      // Return stored recipes
+      return storedRecipes;
+    }
+  });
+
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [searchResults, setSearchResults] = useState([]);
-
-  // Load recipes from localStorage when the component mounts
-  useEffect(() => {
-    const storedRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
-    setRecipes(storedRecipes);
-  }, []);
 
   // Save recipes to localStorage whenever they change
   useEffect(() => {

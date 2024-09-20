@@ -1,25 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { sanitizeAndValidateInput } from "../../global-util/sanitizeValidateInput";
 
 const RecipeForm = ({ addRecipe }) => {
-  const [title, setTitle] = useState('');
-  const [ingredients, setIngredients] = useState('');
-  const [instructions, setInstructions] = useState('');
+  const [title, setTitle] = useState("");
+  const [ingredients, setIngredients] = useState("");
+  const [instructions, setInstructions] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !ingredients) return;
+    if (!title || !ingredients) {
+      alert("Please fill in all fields");
+      return;
+    }
+    const titleSanitized = sanitizeAndValidateInput(title);
+    const ingredientsSanitized = sanitizeAndValidateInput(ingredients);
+    const instructionsSanitized = sanitizeAndValidateInput(instructions);
 
     const newRecipe = {
       id: Date.now(),
-      title,
-      ingredients: ingredients.toLowerCase().split(',').map((ing) => ing.trim()),
-      instructions,
+      title: titleSanitized,
+      ingredients: ingredientsSanitized
+        .toLowerCase()
+        .split(",")
+        .map((ing) => ing.trim()),
+      instructions: instructionsSanitized,
     };
 
     addRecipe(newRecipe);
-    setTitle('');
-    setIngredients('');
-    setInstructions('');
+    setTitle("");
+    setIngredients("");
+    setInstructions("");
   };
 
   return (
