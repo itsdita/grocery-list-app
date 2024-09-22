@@ -3,6 +3,7 @@ import { sanitizeAndValidateInput } from "../../global-util/sanitizeValidateInpu
 
 const RecipeForm = ({ addRecipe }) => {
   const [newCategory, setNewCategory] = useState("");
+  const [ingredientCategory, setIngredientCategory] = useState("");
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [instructions, setInstructions] = useState("");
@@ -15,11 +16,18 @@ const RecipeForm = ({ addRecipe }) => {
     }
 
     const categorySanitized = sanitizeAndValidateInput(newCategory);
+    const ingredientCategorySanitized =
+      sanitizeAndValidateInput(ingredientCategory);
     const titleSanitized = sanitizeAndValidateInput(title);
     const ingredientsSanitized = sanitizeAndValidateInput(ingredients);
     const instructionsSanitized = sanitizeAndValidateInput(instructions);
 
-    if (!categorySanitized || !titleSanitized || !ingredientsSanitized || !instructionsSanitized) {
+    if (
+      !categorySanitized ||
+      !titleSanitized ||
+      !ingredientsSanitized ||
+      !instructionsSanitized
+    ) {
       alert("Please enter valid input");
       return;
     }
@@ -28,13 +36,20 @@ const RecipeForm = ({ addRecipe }) => {
     const parsedIngredients = ingredientsSanitized
       .split(",") // Split by commas to get each ingredient
       .map((ing) => {
-        const parts = ing.trim().split(" "); // Split ingredient into parts
-        const quantityNumber = parseFloat(parts[1]); // Extract quantity number
-        const quantityUnit = parts[1].replace(/[0-9.]/g, "") || ""; // Extract quantity unit (removing numbers)
-        const ingredientName = parts[0]; // Extract ingredient name (first part)
+        let ingredientName = "";
+        const parts = ing.trim().split(" "); // Split ingredient into parts\
+        const len = parts.length;
+        console.log(len)
+        const quantityNumber = parseFloat(parts[len - 1]); // Extract quantity number
+        const quantityUnit = parts[len - 1].replace(/[0-9.]/g, "") || ""; // Extract quantity unit (removing numbers)
+        if (len < 3) {
+          ingredientName = parts[0]; // Extract ingredient name (first part)
+        } else {
+          ingredientName = parts.slice(0, len - 1).join(" "); // Extract ingredient name (first part)
+        }
+        console.log(ingredientName)
 
         return {
-          category: categorySanitized,
           name: ingredientName,
           quantity: {
             number: quantityNumber || 1, // Default to 1 if number is missing
@@ -47,12 +62,16 @@ const RecipeForm = ({ addRecipe }) => {
       id: Date.now(),
       category: categorySanitized,
       title: titleSanitized,
-      ingredients: parsedIngredients, // Use parsed ingredients
+      ingredientCategory: {
+        categoryName: ingredientCategorySanitized,
+        ingredients: parsedIngredients,
+      },
       instructions: instructionsSanitized,
     };
 
     addRecipe(newRecipe);
     setNewCategory("");
+    setIngredientCategory("");
     setTitle("");
     setIngredients("");
     setInstructions("");
@@ -83,7 +102,21 @@ const RecipeForm = ({ addRecipe }) => {
           />
         </div>
         <div>
-          <label htmlFor="ingredients">Ingredients (e.g., "pasta 200g, eggs 4"):</label>
+          <label htmlFor="ingredient-category">
+            Ingredients Category (patty, sauce etc.):
+          </label>
+          <input
+            type="text"
+            value={ingredientCategory}
+            id="ingredient-category"
+            onChange={(e) => setIngredientCategory(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="ingredients">
+            Ingredients (e.g., "pasta 200g, eggs 4"):
+          </label>
           <input
             type="text"
             value={ingredients}

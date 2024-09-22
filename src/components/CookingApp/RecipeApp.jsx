@@ -27,7 +27,6 @@ const RecipeApp = () => {
   });
 
   const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [searchResults, setSearchResults] = useState([]);
 
   // Save recipes to localStorage whenever they change
   useEffect(() => {
@@ -48,15 +47,6 @@ const RecipeApp = () => {
 
   const selectRecipe = (recipe) => {
     setSelectedRecipe(recipe);
-  };
-
-  const searchRecipes = (ingredients) => {
-    const results = recipes.filter((recipe) =>
-      ingredients.every((ingredient) =>
-        recipe.ingredients.includes(ingredient.toLowerCase())
-      )
-    );
-    setSearchResults(results);
   };
 
   const navigate = useNavigate(); // Hook to programmatically navigate
