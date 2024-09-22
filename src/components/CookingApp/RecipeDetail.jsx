@@ -1,19 +1,20 @@
-import React from 'react';
+import React from "react";
 
-const RecipeDetail = ({ recipe, deleteRecipe }) => {
+const RecipeDetail = ({ recipe }) => {
   return (
     <div className="recipe-detail">
       <h2>{recipe.title}</h2>
       <h3>Ingredients:</h3>
       <ul>
-        {recipe.ingredients.map((ing, index) => (
-          <li key={index}>{ing}</li>
+        {recipe.ingredients.map((ingredient, index) => (
+          <li key={index}>
+            {ingredient.name}: {ingredient.quantity.number}{" "}
+            {ingredient.quantity.unit}
+          </li>
         ))}
       </ul>
       <h3>Instructions:</h3>
-      <p>{recipe.instructions || 'No instructions provided.'}</p>
-      <button>Edit Recipe</button>
-      <button onClick={()=>deleteRecipe(recipe.id)}>Delete</button>
+      <p>{recipe.instructions}</p>
     </div>
   );
 };
