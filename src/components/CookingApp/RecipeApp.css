@@ -22,8 +22,28 @@
   text-align: center;
   margin-bottom: 20px;
 }
-.recipe-app h1 {
-  text-align: center;
+.recipe-category-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+.recipe-category-container li {
+  list-style-type: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin: 0;
+  background-color: #acdfc6;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+.recipe-category-container li:hover {
+  background-color: rgba(0, 123, 82, 0.3);
+  color: white;
 }
 .recipe-item-container {
   display: grid;

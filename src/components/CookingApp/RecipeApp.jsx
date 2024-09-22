@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import RecipeList from "./RecipeList";
 import RecipeForm from "./RecipeForm";
 import RecipeDetail from "./RecipeDetail";
-import RecipeSearch from "./RecipeSearch";
+
+
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 
 import { RECIPE_DATA } from "./recipe-data";
 
@@ -57,21 +59,31 @@ const RecipeApp = () => {
     setSearchResults(results);
   };
 
+  const navigate = useNavigate(); // Hook to programmatically navigate
+
+  const handleClick = (path) => {
+    navigate(path);
+  };
+
   return (
-    <div id="recipe-app-container">
-      <div className="recipe-app">
-        <h2>My Recipe Organizer</h2>
-        <RecipeList
-          recipes={searchResults.length > 0 ? searchResults : recipes}
-          selectRecipe={selectRecipe}
-        />
-        {selectedRecipe && (
-          <RecipeDetail recipe={selectedRecipe} deleteRecipe={deleteRecipe} />
-        )}
-        <RecipeSearch searchRecipes={searchRecipes} />
-        <RecipeForm addRecipe={addRecipe} />
+    <>
+      <div id="recipe-app-container">
+        <div className="recipe-app">
+          <h2>My Recipes</h2>
+          <RecipeList
+            recipes={recipes}
+            selectRecipe={selectRecipe}
+          />
+          {selectedRecipe && (
+            <RecipeDetail recipe={selectedRecipe} deleteRecipe={deleteRecipe} />
+          )}
+          <RecipeForm addRecipe={addRecipe} />
+        </div>
       </div>
-    </div>
+      <section id="back-to-main-menu">
+        <button onClick={() => handleClick("/")}>BACK TO MAIN MENU</button>
+      </section>
+    </>
   );
 };
 
