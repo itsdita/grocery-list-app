@@ -38,10 +38,16 @@ const RecipeApp = () => {
 
   // Function to delete a recipe by ID
   const deleteRecipe = (id) => {
-    const updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
-    setRecipes(updatedRecipes);
-    if (selectedRecipe && selectedRecipe.id === id) {
-      setSelectedRecipe(null);
+    if (
+      window.confirm(
+        "Are you sure you want to delete this category and all its items?"
+      )
+    ) {
+      const updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
+      setRecipes(updatedRecipes);
+      if (selectedRecipe && selectedRecipe.id === id) {
+        setSelectedRecipe(null);
+      }
     }
   };
 
@@ -118,10 +124,7 @@ const RecipeApp = () => {
 
           <RecipeList recipes={recipes} selectRecipe={selectRecipe} />
           {selectedRecipe && (
-            <RecipeDetail
-              recipe={selectedRecipe}
-              deleteRecipe={deleteRecipe}
-            />
+            <RecipeDetail recipe={selectedRecipe} deleteRecipe={deleteRecipe} />
           )}
           <div>
             <h3
