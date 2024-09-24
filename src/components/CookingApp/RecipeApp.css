@@ -55,6 +55,7 @@
   text-align: center;
 }
 .recipe-item {
+  justify-self:stretch;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -67,7 +68,6 @@
 }
 .recipe-image {
   border-radius: 16px 16px 0 0;
-  width: 200px;
   height: 200px;
   object-fit: cover;
 }
