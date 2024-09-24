@@ -1,7 +1,5 @@
 .main-menu {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, max-content));
-  max-width: 980px;
+  max-width: 510px;
   justify-items: center;
   justify-content: center;
   margin: 0 auto;
@@ -13,12 +11,19 @@
 
 .button-grid {
   display: grid;
-  grid-template-columns: repeat(2, 250px);
-  grid-template-rows: repeat(2, 250px);
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
   gap: 10px;
 }
 
+#weather-widget {
+ grid-column: 1 / span 2;
+  grid-row: 1;
+  height: 80px;
+}
+
 .menu-button {
+  height: 250px;
   border-radius: 16px;
   background: rgba(210, 233, 222, 0.6);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
