@@ -1,46 +1,32 @@
 const RECIPE_DATA = [
   {
     id: 1,
+    category: ["beef", "main", "dinner"], // Categories for the entire recipe
     title: "ハンバーグ",
-    category: ["beef"], // Categories for the entire recipe
-    ingredientCategories: [
+    image: "https://norecipes.com/wp-content/uploads/2018/10/japanese-hamburg-steak-002.jpg",
+    ingredients: [
       {
-        categoryName: "For Patty", // Ingredient section/category name
-        ingredients: [
-          {
-            name: "onion",
-            quantity: { number: 200, unit: "g" },
-          },
-          {
-            name: "garlic",
-            quantity: { number: 4, unit: "g" },
-          },
-          { name: "ground beef", quantity: { number: 700, unit: "g" } },
-          { name: "soft tofu", quantity: { number: 140, unit: "g" } },
-          {
-            name: "panko",
-            quantity: { number: 50, unit: "g" },
-          },
-          { name: "egg", quantity: { number: 1, unit: "large" } },
-          { name: "oyster sauce", quantity: { number: 2, unit: "tbsp" } },
-          { name: "ground nutmeg", quantity: { number: 0.25, unit: "tsp" } },
-          {
-            name: "ground black pepper",
-            quantity: { number: 0.25, unit: "tsp" },
-          },
-          { name: "vegetable oil", quantity: { number: 2, unit: "tsp" } },
+        groupName: "For Patty", // Ingredient section/category name
+        items: [
+          { name: "onion", quantity: 200, unit: "g" },
+          { name: "garlic", quantity: 4, unit: "g" },
+          { name: "ground beef", quantity: 700, unit: "g" },
+          { name: "soft tofu", quantity: 140, unit: "g" },
+          { name: "panko", quantity: 50, unit: "g" },
+          { name: "egg", quantity: 1, unit: "large" },
+          { name: "oyster sauce", quantity: 2, unit: "tbsp" },
+          { name: "ground nutmeg", quantity: 0.25, unit: "tsp" },
+          { name: "ground black pepper", quantity: 0.25, unit: "tsp" },
+          { name: "vegetable oil", quantity: 2, unit: "tsp" },
         ],
       },
       {
         categoryName: "For Sauce", // Another section/category name
         ingredients: [
-          { name: "dry red wine", quantity: { number: 0.5, unit: "cup" } },
-          { name: "ketchup", quantity: { number: 0.33, unit: "cup" } },
-          {
-            name: "chunou sauce",
-            quantity: { number: 3, unit: "tbsp" },
-          },
-          { name: "oyster sauce", quantity: { number: 1, unit: "tbsp" } },
+          { name: "dry red wine", quantity: 0.5, unit: "cup" },
+          { name: "ketchup", quantity: 0.33, unit: "cup" },
+          { name: "chunou sauce", quantity: 3, unit: "tbsp" },
+          { name: "oyster sauce", quantity: 1, unit: "tbsp" },
         ],
       },
     ],
