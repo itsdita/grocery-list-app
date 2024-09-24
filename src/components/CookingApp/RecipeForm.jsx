@@ -1,10 +1,11 @@
+// RecipeForm.jsx
 import React, { useState } from "react";
 
 const RecipeForm = ({ addRecipe }) => {
   // State variables
   const [newCategory, setNewCategory] = useState("");
   const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
+  const [imageFile, setImageFile] = useState(null); // Changed from image URL to image file
   const [instructions, setInstructions] = useState("");
   const [ingredientGroups, setIngredientGroups] = useState([
     { groupName: "", items: [{ name: "", quantity: "", unit: "" }] },
@@ -13,10 +14,25 @@ const RecipeForm = ({ addRecipe }) => {
   // Handler functions
   const handleNewCategoryChange = (e) => setNewCategory(e.target.value);
   const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleImageChange = (e) => setImage(e.target.value);
+
+  // Handle image file selection
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Optional: Validate file type
+      if (!file.type.startsWith("image/")) {
+        alert("Please select a valid image file.");
+        return;
+      }
+      setImageFile(file);
+    } else {
+      setImageFile(null);
+    }
+  };
+
   const handleInstructionsChange = (e) => setInstructions(e.target.value);
 
-  // Ingredient group handlers
+  // Ingredient group handlers (unchanged)
   const addIngredientGroup = () => {
     setIngredientGroups([
       ...ingredientGroups,
@@ -37,7 +53,7 @@ const RecipeForm = ({ addRecipe }) => {
     setIngredientGroups(updatedGroups);
   };
 
-  // Ingredient item handlers
+  // Ingredient item handlers (unchanged)
   const addIngredientItem = (groupIndex) => {
     const updatedGroups = [...ingredientGroups];
     updatedGroups[groupIndex].items.push({ name: "", quantity: "", unit: "" });
@@ -62,12 +78,22 @@ const RecipeForm = ({ addRecipe }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validate required fields
+    if (!title || !newCategory || !instructions) {
+      alert("Please fill out all required fields.");
+      return;
+    }
+
+    if (!imageFile) {
+      alert("Please upload an image.");
+      return;
+    }
+
     // Create a new recipe object
     const newRecipe = {
-      id: Date.now(), // Unique ID
       category: newCategory,
       title,
-      image,
+      imageFile, // Include the image file
       instructions,
       ingredients: ingredientGroups.map((group) => ({
         groupName: group.groupName,
@@ -90,11 +116,13 @@ const RecipeForm = ({ addRecipe }) => {
   const resetForm = () => {
     setNewCategory("");
     setTitle("");
-    setImage("");
+    setImageFile(null);
     setInstructions("");
     setIngredientGroups([
       { groupName: "", items: [{ name: "", quantity: "", unit: "" }] },
     ]);
+    // Reset the file input field
+    document.getElementById("image-upload").value = "";
   };
 
   return (
@@ -111,6 +139,7 @@ const RecipeForm = ({ addRecipe }) => {
             required
           />
         </div>
+        {/* Recipe Category */}
         <div>
           <label>Recipe Category:</label>
           <input
@@ -121,12 +150,13 @@ const RecipeForm = ({ addRecipe }) => {
           />
         </div>
 
-        {/* Image URL */}
+        {/* Image Upload */}
         <div>
-          <label>Image URL:</label>
+          <label>Upload Image:</label>
           <input
-            type="text"
-            value={image}
+            type="file"
+            id="image-upload"
+            accept="image/*"
             onChange={handleImageChange}
             required
           />
@@ -250,15 +280,5 @@ const RecipeForm = ({ addRecipe }) => {
     </>
   );
 };
-
-// Utility function
-function createRecipeObject(title, image, ingredients, instructions) {
-  return {
-    title,
-    image,
-    ingredients,
-    instructions,
-  };
-}
 
 export default RecipeForm;

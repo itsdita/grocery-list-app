@@ -1,59 +1,86 @@
+// RecipeApp.jsx
 import React, { useState, useEffect } from "react";
 import RecipeList from "./RecipeList";
 import RecipeForm from "./RecipeForm";
 import RecipeDetail from "./RecipeDetail";
 import { useNavigate } from "react-router-dom";
-import { RECIPE_DATA } from "./recipe-data";
+import axios from "axios"; // Import Axios for API calls
 import "./RecipeApp.css";
 
 const RecipeApp = () => {
   const [recipesMngmntToggle, setRecipesMngmntToggle] = useState(false);
-
-  const [recipes, setRecipes] = useState(() => {
-    // Load recipes from localStorage
-    const storedRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
-
-    // If there are no recipes in localStorage, use RECIPE_DATA
-    if (storedRecipes.length === 0) {
-      // Save RECIPE_DATA to localStorage
-      localStorage.setItem("recipes", JSON.stringify(RECIPE_DATA));
-      return RECIPE_DATA;
-    } else {
-      // Return stored recipes
-      return storedRecipes;
-    }
-  });
-
+  const [recipes, setRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
 
-  // Save recipes to localStorage whenever they change
+  const navigate = useNavigate();
+
+  // Fetch recipes from the backend when the component mounts
   useEffect(() => {
-    localStorage.setItem("recipes", JSON.stringify(recipes));
-  }, [recipes]);
+    fetchRecipes();
+  }, []);
+
+  // Function to fetch recipes from the backend
+  const fetchRecipes = () => {
+    axios
+      .get("http://localhost:5000/api/recipes")
+      .then((response) => {
+        setRecipes(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching recipes:", error);
+      });
+  };
 
   // Function to add a new recipe
   const addRecipe = (recipe) => {
-    setRecipes([...recipes, recipe]);
+    // Create FormData to handle file uploads
+    const formData = new FormData();
+    formData.append("title", recipe.title);
+    formData.append("category", recipe.category);
+    formData.append("instructions", recipe.instructions);
+    formData.append("ingredients", JSON.stringify(recipe.ingredients));
+    if (recipe.imageFile) {
+      formData.append("image", recipe.imageFile);
+    }
+
+    axios
+      .post("http://localhost:5000/api/recipes", formData)
+      .then((response) => {
+        // Update the recipes state with the new recipe
+        setRecipes([...recipes, response.data]);
+        setRecipesMngmntToggle(false); // Close the form after adding
+      })
+      .catch((error) => {
+        console.error("Error adding recipe:", error);
+      });
   };
 
   // Function to delete a recipe by ID
   const deleteRecipe = (id) => {
     if (
       window.confirm(
-        "Are you sure you want to delete this category and all its items?"
+        "Are you sure you want to delete this recipe and all its data?"
       )
     ) {
-      const updatedRecipes = recipes.filter((recipe) => recipe.id !== id);
-      setRecipes(updatedRecipes);
-      if (selectedRecipe && selectedRecipe.id === id) {
-        setSelectedRecipe(null);
-      }
+      axios
+        .delete(`http://localhost:5000/api/recipes/${id}`)
+        .then(() => {
+          // Remove the deleted recipe from the state
+          const updatedRecipes = recipes.filter((recipe) => recipe._id !== id);
+          setRecipes(updatedRecipes);
+          if (selectedRecipe && selectedRecipe._id === id) {
+            setSelectedRecipe(null);
+          }
+        })
+        .catch((error) => {
+          console.error("Error deleting recipe:", error);
+        });
     }
   };
 
   // Function to select or deselect a recipe
   const selectRecipe = (recipe) => {
-    if (selectedRecipe && selectedRecipe.id === recipe.id) {
+    if (selectedRecipe && selectedRecipe._id === recipe._id) {
       // If the same recipe is clicked again, deselect it
       setSelectedRecipe(null);
     } else {
@@ -64,18 +91,26 @@ const RecipeApp = () => {
 
   // Function to export recipes to a JSON file
   const exportRecipes = () => {
-    const dataStr = JSON.stringify(recipes, null, 2); // Pretty-print with indentation
-    const blob = new Blob([dataStr], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
+    // Fetch recipes from the backend (ensure data is up-to-date)
+    axios
+      .get("http://localhost:5000/api/recipes")
+      .then((response) => {
+        const dataStr = JSON.stringify(response.data, null, 2);
+        const blob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
 
-    // Create a link and trigger the download
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "recipes.json";
-    link.click();
+        // Create a link and trigger the download
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "recipes.json";
+        link.click();
 
-    // Clean up the URL object
-    URL.revokeObjectURL(url);
+        // Clean up the URL object
+        URL.revokeObjectURL(url);
+      })
+      .catch((error) => {
+        console.error("Error exporting recipes:", error);
+      });
   };
 
   // Function to import recipes from a JSON file
@@ -95,9 +130,20 @@ const RecipeApp = () => {
 
           // Validate the structure of importedRecipes
           if (Array.isArray(importedRecipes)) {
-            setRecipes(importedRecipes);
-            setSelectedRecipe(null);
-            alert("Recipes imported successfully!");
+            // Send imported recipes to the backend
+            axios
+              .post("http://localhost:5000/api/recipes/import", {
+                recipes: importedRecipes,
+              })
+              .then(() => {
+                alert("Recipes imported successfully!");
+                fetchRecipes(); // Refresh the recipe list
+                setSelectedRecipe(null);
+              })
+              .catch((error) => {
+                alert("Error importing recipes.");
+                console.error("Error importing recipes:", error);
+              });
           } else {
             alert("Invalid recipe data format.");
           }
@@ -109,8 +155,6 @@ const RecipeApp = () => {
       reader.readAsText(file);
     }
   };
-
-  const navigate = useNavigate(); // Hook to programmatically navigate
 
   const handleClick = (path) => {
     navigate(path);
@@ -124,7 +168,10 @@ const RecipeApp = () => {
 
           <RecipeList recipes={recipes} selectRecipe={selectRecipe} />
           {selectedRecipe && (
-            <RecipeDetail recipe={selectedRecipe} deleteRecipe={deleteRecipe} />
+            <RecipeDetail
+              recipe={selectedRecipe}
+              deleteRecipe={deleteRecipe}
+            />
           )}
           <div>
             <h3

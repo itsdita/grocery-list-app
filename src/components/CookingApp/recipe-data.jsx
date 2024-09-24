@@ -1,9 +1,12 @@
+import hanbaagu from "../../assets/recipe-images/japanese-hamburg-steak-002.jpeg";
+
+
 const RECIPE_DATA = [
   {
     id: 1,
     category: ["beef", "main", "dinner"], // Categories for the entire recipe
     title: "ハンバーグ",
-    image: "https://norecipes.com/wp-content/uploads/2018/10/japanese-hamburg-steak-002.jpg",
+    image: hanbaagu,
     ingredients: [
       {
         groupName: "For Patty", // Ingredient section/category name
