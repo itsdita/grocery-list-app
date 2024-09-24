@@ -1,23 +1,23 @@
 // models/Recipe.js
-const mongoose = require('mongoose');
-
-const IngredientItemSchema = new mongoose.Schema({
-  name: String,
-  quantity: Number,
-  unit: String,
-});
-
-const IngredientGroupSchema = new mongoose.Schema({
-  groupName: String,
-  items: [IngredientItemSchema],
-});
+const mongoose = require("mongoose");
 
 const RecipeSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  category: [String],
-  image: String, // For image URL or data
+  title: String,
+  category: String,
+  image: String,
   instructions: String,
-  ingredients: [IngredientGroupSchema],
+  ingredients: [
+    {
+      groupName: String,
+      items: [
+        {
+          name: String,
+          quantity: Number,
+          unit: String,
+        },
+      ],
+    },
+  ],
 });
 
-module.exports = mongoose.model('Recipe', RecipeSchema);
+module.exports = mongoose.model("Recipe", RecipeSchema, "recipesList");

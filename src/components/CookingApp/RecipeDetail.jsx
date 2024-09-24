@@ -18,7 +18,7 @@ const RecipeDetail = ({ recipe, deleteRecipe }) => {
       <h2>{recipe.title}</h2>
 
       {/* Display the image if available */}
-      <div className="recipe-detail-image">{recipe.image && <img src={recipe.image} alt={recipe.title} />}</div>
+      <div className="recipe-detail-image">{recipe.image && <img src={`http://localhost:5000/uploads/${recipe.image}`} alt={recipe.title} />}</div>
       <div className="recipe-detail-ingredients">
         {/* Loop through ingredient groups */}
         {ingredients.map((ingredientGroup, idx) => (

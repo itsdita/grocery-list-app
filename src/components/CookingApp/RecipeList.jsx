@@ -36,7 +36,7 @@ const RecipeList = ({ recipes, selectRecipe }) => {
             >
               <img
                 className="recipe-image"
-                src={recipe.image}
+                src={`http://localhost:5000/uploads/${recipe.image}`}
                 alt={recipe.title}
               />
               <span className="recipe-name">{recipe.title}</span>

@@ -30,6 +30,7 @@ const RecipeApp = () => {
         console.error("Error fetching recipes:", error);
       });
   };
+  console.log(recipes);
 
   // Function to add a new recipe
   const addRecipe = (recipe) => {
