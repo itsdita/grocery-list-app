@@ -21,8 +21,8 @@ const RECIPE_DATA = [
         ],
       },
       {
-        categoryName: "For Sauce", // Another section/category name
-        ingredients: [
+        groupName: "For Sauce", // Another section/category name
+        items: [
           { name: "dry red wine", quantity: 0.5, unit: "cup" },
           { name: "ketchup", quantity: 0.33, unit: "cup" },
           { name: "chunou sauce", quantity: 3, unit: "tbsp" },

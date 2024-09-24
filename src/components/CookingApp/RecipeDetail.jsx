@@ -6,20 +6,30 @@ const RecipeDetail = ({ recipe }) => {
     return <div>Loading...</div>;
   }
 
-  // Provide a default value for ingredientCategories
-  const ingredientCategories = recipe.ingredientCategories || [];
+  // Provide a default value for ingredients
+  const ingredients = recipe.ingredients || [];
+
+  // Debugging statements
+  console.log('Recipe:', recipe);
+  console.log('Ingredients:', ingredients);
 
   return (
     <div className="recipe-detail">
       <h2>{recipe.title}</h2>
 
-      {ingredientCategories.map((ingredientCategory, idx) => (
-        <div key={idx}>
-          <h3>{ingredientCategory.categoryName}:</h3>
+      {/* Display the image if available */}
+      {recipe.image && (
+        <img src={recipe.image} alt={recipe.title} className="recipe-image" />
+      )}
+
+      {/* Loop through ingredient groups */}
+      {ingredients.map((ingredientGroup, idx) => (
+        <div key={idx} className="ingredient-group">
+          <h3>{ingredientGroup.groupName}:</h3>
           <ul>
-            {ingredientCategory.ingredients.map((ingredient, index) => (
+            {(ingredientGroup.items || []).map((ingredient, index) => (
               <li key={index}>
-                {ingredient.name}: {ingredient.quantity.number} {ingredient.quantity.unit}
+                {ingredient.name}: {ingredient.quantity} {ingredient.unit}
               </li>
             ))}
           </ul>
