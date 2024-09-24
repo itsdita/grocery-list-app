@@ -36,7 +36,7 @@ const RecipeList = ({ recipes, selectRecipe }) => {
             >
               <img
                 className="recipe-image"
-                src={recipe.image} // Replace with actual image path
+                src={recipe.image}
                 alt={recipe.title}
               />
               <span className="recipe-name">{recipe.title}</span>

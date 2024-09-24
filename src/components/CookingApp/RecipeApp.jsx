@@ -8,6 +8,7 @@ import "./RecipeApp.css";
 
 const RecipeApp = () => {
   const [recipesMngmntToggle, setRecipesMngmntToggle] = useState(false);
+
   const [recipes, setRecipes] = useState(() => {
     // Load recipes from localStorage
     const storedRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
@@ -44,9 +45,15 @@ const RecipeApp = () => {
     }
   };
 
-  // Function to select a recipe
+  // Function to select or deselect a recipe
   const selectRecipe = (recipe) => {
-    setSelectedRecipe(recipe);
+    if (selectedRecipe && selectedRecipe.id === recipe.id) {
+      // If the same recipe is clicked again, deselect it
+      setSelectedRecipe(null);
+    } else {
+      // Otherwise, select the new recipe
+      setSelectedRecipe(recipe);
+    }
   };
 
   // Function to export recipes to a JSON file
@@ -111,11 +118,17 @@ const RecipeApp = () => {
 
           <RecipeList recipes={recipes} selectRecipe={selectRecipe} />
           {selectedRecipe && (
-            <RecipeDetail recipe={selectedRecipe} deleteRecipe={deleteRecipe} />
+            <RecipeDetail
+              recipe={selectedRecipe}
+              deleteRecipe={deleteRecipe}
+            />
           )}
           <div>
-            <h3 onClick={() => setRecipesMngmntToggle(!recipesMngmntToggle)} style={{ cursor: "pointer" }}>
-              Recipes Managemenent
+            <h3
+              onClick={() => setRecipesMngmntToggle(!recipesMngmntToggle)}
+              style={{ cursor: "pointer" }}
+            >
+              Recipes Management
             </h3>
             {recipesMngmntToggle && (
               <>
