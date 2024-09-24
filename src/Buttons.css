@@ -1,6 +1,7 @@
 /* GLOBAL BUTTON STYLES */
 button,
-#import-file {
+#import-file,
+.import-file {
   font-size: 0.85rem;
   text-transform: uppercase;
   font-weight: bold;
@@ -14,6 +15,7 @@ button,
 }
 button:hover,
 #import-file:hover,
+.import-file:hover,
 .grocery-list h3:hover,
 #history-container h3:hover,
 #back-to-main-menu button:hover {
