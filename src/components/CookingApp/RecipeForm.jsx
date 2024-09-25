@@ -13,8 +13,10 @@ const RecipeForm = ({ addRecipe }) => {
   const [instructions, setInstructions] = useState("");
 
   // Handler functions
-  const handleNewCategoryChange = (e) => setNewCategory(sanitizeAndValidateInput(e.target.value));
-  const handleTitleChange = (e) => setTitle(sanitizeAndValidateInput(e.target.value));
+  const handleNewCategoryChange = (e) =>
+    setNewCategory(sanitizeAndValidateInput(e.target.value));
+  const handleTitleChange = (e) =>
+    setTitle(sanitizeAndValidateInput(e.target.value));
 
   // Handle image file selection
   const handleImageChange = (e) => {
@@ -52,7 +54,8 @@ const RecipeForm = ({ addRecipe }) => {
     }
   };
 
-  const handleInstructionsChange = (e) => setInstructions(sanitizeAndValidateInput(e.target.value));
+  const handleInstructionsChange = (e) =>
+    setInstructions(sanitizeAndValidateInput(e.target.value));
 
   // Ingredient group handlers (unchanged)
   const addIngredientGroup = () => {
@@ -153,47 +156,49 @@ const RecipeForm = ({ addRecipe }) => {
     <>
       <h3>Add New Recipe</h3>
       <form id="recipe-form" onSubmit={handleSubmit}>
-        {/* Recipe Title */}
-        <div>
-          <label>Recipe Title:</label>
-          <input
-            type="text"
-            value={title}
-            onChange={handleTitleChange}
-            required
-          />
-        </div>
-        {/* Recipe Category */}
-        <div>
-          <label>Recipe Category:</label>
-          <input
-            type="text"
-            value={newCategory}
-            onChange={handleNewCategoryChange}
-            required
-          />
-        </div>
+        <div id="recipe-form-main-details">
+          {/* Recipe Title */}
+          <div>
+            <label>Recipe Title:</label>
+            <input
+              type="text"
+              value={title}
+              onChange={handleTitleChange}
+              required
+            />
+          </div>
+          {/* Recipe Category */}
+          <div>
+            <label>Recipe Category:</label>
+            <input
+              type="text"
+              value={newCategory}
+              onChange={handleNewCategoryChange}
+              required
+            />
+          </div>
 
-        {/* Image Upload */}
-        <div>
-          <label>Upload Image:</label>
-          <input
-            type="file"
-            id="image-upload"
-            accept="image/*"
-            onChange={handleImageChange}
-            required
-          />
-        </div>
+          {/* Image Upload */}
+          <div>
+            <label>Upload Image:</label>
+            <input
+              type="file"
+              id="image-upload"
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+            />
+          </div>
 
-        {/* Instructions */}
-        <div>
-          <label>Instructions:</label>
-          <textarea
-            value={instructions}
-            onChange={handleInstructionsChange}
-            required
-          />
+          {/* Instructions */}
+          <div>
+            <label>Instructions:</label>
+            <textarea
+              value={instructions}
+              onChange={handleInstructionsChange}
+              required
+            />
+          </div>
         </div>
 
         {/* Ingredients */}

@@ -86,7 +86,9 @@
   height: 100%;
   cursor: pointer;
 }
-
+.recipe-instructions{
+  white-space: pre-wrap;
+}
 .recipe-detail {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
@@ -103,6 +105,24 @@
   margin: 0;
   text-transform: capitalize;
   text-align: left;
+}
+#recipe-form-main-details{
+  display:flex;
+  flex-direction: column;
+  gap:0;
+}
+#recipe-form-main-details div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+}
+#recipe-form-main-details input{
+  width: 20rem;
+}
+#recipe-form-main-details textarea{
+  width: 20rem;
+  height: 5rem;
 }
 .recipe-detail-image{
   grid-column: 1;
