@@ -89,6 +89,9 @@
 .recipe-instructions{
   white-space: pre-wrap;
 }
+.main-details-input{
+  align-items: center;
+}
 .recipe-detail {
   display: grid;
   grid-template-columns: 1fr 1.5fr;

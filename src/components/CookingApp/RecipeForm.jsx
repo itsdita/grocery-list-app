@@ -158,20 +158,22 @@ const RecipeForm = ({ addRecipe }) => {
       <form id="recipe-form" onSubmit={handleSubmit}>
         <div id="recipe-form-main-details">
           {/* Recipe Title */}
-          <div>
-            <label>Recipe Title:</label>
+          <div className="main-details-input">
+            <label htmlFor="recipe-title">Recipe Title:</label>
             <input
               type="text"
+              id="recipe-title"
               value={title}
               onChange={handleTitleChange}
               required
             />
           </div>
           {/* Recipe Category */}
-          <div>
-            <label>Recipe Category:</label>
+          <div className="main-details-input">
+            <label htmlFor="recipe-category">Recipe Category:</label>
             <input
               type="text"
+              id="recipe-category"
               value={newCategory}
               onChange={handleNewCategoryChange}
               required
@@ -179,8 +181,8 @@ const RecipeForm = ({ addRecipe }) => {
           </div>
 
           {/* Image Upload */}
-          <div>
-            <label>Upload Image:</label>
+          <div className="main-details-input">
+            <label htmlFor="image-upload">Upload Image:</label>
             <input
               type="file"
               id="image-upload"
