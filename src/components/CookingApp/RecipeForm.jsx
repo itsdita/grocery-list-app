@@ -1,5 +1,6 @@
 // RecipeForm.jsx
 import React, { useState } from "react";
+import { sanitizeAndValidateInput } from "../../global-util/sanitizeValidateInput";
 
 const RecipeForm = ({ addRecipe }) => {
   // State variables
@@ -12,8 +13,8 @@ const RecipeForm = ({ addRecipe }) => {
   const [instructions, setInstructions] = useState("");
 
   // Handler functions
-  const handleNewCategoryChange = (e) => setNewCategory(e.target.value);
-  const handleTitleChange = (e) => setTitle(e.target.value);
+  const handleNewCategoryChange = (e) => setNewCategory(sanitizeAndValidateInput(e.target.value));
+  const handleTitleChange = (e) => setTitle(sanitizeAndValidateInput(e.target.value));
 
   // Handle image file selection
   const handleImageChange = (e) => {
@@ -51,7 +52,7 @@ const RecipeForm = ({ addRecipe }) => {
     }
   };
 
-  const handleInstructionsChange = (e) => setInstructions(e.target.value);
+  const handleInstructionsChange = (e) => setInstructions(sanitizeAndValidateInput(e.target.value));
 
   // Ingredient group handlers (unchanged)
   const addIngredientGroup = () => {
@@ -69,8 +70,9 @@ const RecipeForm = ({ addRecipe }) => {
   };
 
   const handleGroupNameChange = (groupIndex, value) => {
+    const sanitizedValue = sanitizeAndValidateInput(value);
     const updatedGroups = [...ingredientGroups];
-    updatedGroups[groupIndex].groupName = value;
+    updatedGroups[groupIndex].groupName = sanitizedValue;
     setIngredientGroups(updatedGroups);
   };
 
@@ -90,8 +92,9 @@ const RecipeForm = ({ addRecipe }) => {
   };
 
   const handleIngredientItemChange = (groupIndex, itemIndex, field, value) => {
+    const sanitizedValue = sanitizeAndValidateInput(value);
     const updatedGroups = [...ingredientGroups];
-    updatedGroups[groupIndex].items[itemIndex][field] = value;
+    updatedGroups[groupIndex].items[itemIndex][field] = sanitizedValue;
     setIngredientGroups(updatedGroups);
   };
 
