@@ -30,7 +30,7 @@ const RecipeList = ({ recipes, selectRecipe }) => {
           })
           .map((recipe) => (
             <li
-              key={recipe.id}
+              key={recipe._id}
               className="recipe-item"
               onClick={() => selectRecipe(recipe)}
             >

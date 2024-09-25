@@ -1,9 +1,8 @@
-// models/Recipe.js
 const mongoose = require("mongoose");
 
 const RecipeSchema = new mongoose.Schema({
+  category: Array,
   title: String,
-  category: String,
   image: String,
   instructions: String,
   ingredients: [

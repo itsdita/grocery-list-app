@@ -6,10 +6,10 @@ const RecipeForm = ({ addRecipe }) => {
   const [newCategory, setNewCategory] = useState("");
   const [title, setTitle] = useState("");
   const [imageFile, setImageFile] = useState(null); // Changed from image URL to image file
-  const [instructions, setInstructions] = useState("");
   const [ingredientGroups, setIngredientGroups] = useState([
     { groupName: "", items: [{ name: "", quantity: "", unit: "" }] },
   ]);
+  const [instructions, setInstructions] = useState("");
 
   // Handler functions
   const handleNewCategoryChange = (e) => setNewCategory(e.target.value);
@@ -19,11 +19,32 @@ const RecipeForm = ({ addRecipe }) => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Optional: Validate file type
+      // Validate file type
       if (!file.type.startsWith("image/")) {
         alert("Please select a valid image file.");
         return;
       }
+
+      // Validate file size (max 5MB)
+      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      if (file.size > maxSize) {
+        alert("File size should not exceed 5MB.");
+        return;
+      }
+
+      // Validate file extension
+      const validExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+      const fileExtension = file.name
+        .substring(file.name.lastIndexOf("."))
+        .toLowerCase();
+      if (!validExtensions.includes(fileExtension)) {
+        alert(
+          "Please select an image file with a valid extension (.jpg, .jpeg, .png, .gif)."
+        );
+        return;
+      }
+
+      // All validations passed
       setImageFile(file);
     } else {
       setImageFile(null);

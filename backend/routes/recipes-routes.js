@@ -4,6 +4,7 @@ const router = express.Router();
 const Recipe = require("../models/Recipe");
 const multer = require("multer");
 const path = require("path");
+const mongoose = require("mongoose");
 
 // Set up storage
 const storage = multer.diskStorage({
@@ -42,11 +43,11 @@ router.get("/:id", getRecipe, (req, res) => {
 // CREATE a new recipe with image upload
 router.post("/", upload.single("image"), async (req, res) => {
   const recipe = new Recipe({
-    title: req.body.title,
     category: req.body.category.split(","), // Assuming categories are sent as a comma-separated string
+    title: req.body.title,
     image: req.file ? req.file.filename : null, // Store the filename
-    instructions: req.body.instructions,
     ingredients: JSON.parse(req.body.ingredients),
+    instructions: req.body.instructions,
   });
 
   try {
@@ -60,11 +61,11 @@ router.post("/", upload.single("image"), async (req, res) => {
 
 // UPDATE a recipe
 router.put("/:id", getRecipe, async (req, res) => {
-  res.recipe.title = req.body.title || res.recipe.title;
   res.recipe.category = req.body.category || res.recipe.category;
+  res.recipe.title = req.body.title || res.recipe.title;
   res.recipe.image = req.body.image || res.recipe.image;
-  res.recipe.instructions = req.body.instructions || res.recipe.instructions;
   res.recipe.ingredients = req.body.ingredients || res.recipe.ingredients;
+  res.recipe.instructions = req.body.instructions || res.recipe.instructions;
 
   try {
     const updatedRecipe = await res.recipe.save();
@@ -74,32 +75,28 @@ router.put("/:id", getRecipe, async (req, res) => {
   }
 });
 
-// DELETE a recipe
-router.delete("/:id", getRecipe, async (req, res) => {
+// DELETE a recipe by ID
+router.delete("/:id", async (req, res) => {
   try {
-    await res.recipe.remove();
-    res.json({ message: "Recipe deleted" });
+    const { id } = req.params;
+
+    // Validate ID format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid recipe ID format" });
+    }
+
+    const recipe = await Recipe.findById(id);
+    if (!recipe) {
+      return res.status(404).json({ message: "Recipe not found" });
+    }
+
+    await Recipe.deleteOne({ _id: id });
+    res.status(200).json({ message: "Recipe deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("Error deleting recipe:", err);
+    res.status(500).json({ message: "Server error while deleting recipe" });
   }
 });
-// IMPORT recipes from JSON
-router.post("/import", async (req, res) => {
-    const { recipes } = req.body;
-  
-    if (!Array.isArray(recipes)) {
-      return res.status(400).json({ message: "Invalid data format" });
-    }
-  
-    try {
-      // Insert multiple recipes
-      await Recipe.insertMany(recipes);
-      res.status(201).json({ message: "Recipes imported successfully" });
-    } catch (err) {
-      console.error("Error importing recipes:", err);
-      res.status(500).json({ message: "Error importing recipes" });
-    }
-  });
 
 // Middleware function to get a recipe by ID
 async function getRecipe(req, res, next) {

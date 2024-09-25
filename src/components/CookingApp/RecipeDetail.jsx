@@ -36,7 +36,7 @@ const RecipeDetail = ({ recipe, deleteRecipe }) => {
       </div>
 
       <p>{recipe.instructions}</p>
-      <button id="recipe-detail-delete" onClick={()=>deleteRecipe(recipe.id)}>Delete Recipe</button>
+      <button id="recipe-detail-delete" onClick={()=>deleteRecipe(recipe._id)}>Delete Recipe</button>
     </div>
   );
 };

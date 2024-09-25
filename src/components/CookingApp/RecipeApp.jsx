@@ -30,19 +30,18 @@ const RecipeApp = () => {
         console.error("Error fetching recipes:", error);
       });
   };
-  console.log(recipes);
 
   // Function to add a new recipe
   const addRecipe = (recipe) => {
     // Create FormData to handle file uploads
     const formData = new FormData();
-    formData.append("title", recipe.title);
     formData.append("category", recipe.category);
-    formData.append("instructions", recipe.instructions);
-    formData.append("ingredients", JSON.stringify(recipe.ingredients));
+    formData.append("title", recipe.title);
     if (recipe.imageFile) {
       formData.append("image", recipe.imageFile);
     }
+    formData.append("ingredients", JSON.stringify(recipe.ingredients));
+    formData.append("instructions", recipe.instructions);
 
     axios
       .post("http://localhost:5000/api/recipes", formData)
@@ -169,10 +168,7 @@ const RecipeApp = () => {
 
           <RecipeList recipes={recipes} selectRecipe={selectRecipe} />
           {selectedRecipe && (
-            <RecipeDetail
-              recipe={selectedRecipe}
-              deleteRecipe={deleteRecipe}
-            />
+            <RecipeDetail recipe={selectedRecipe} deleteRecipe={deleteRecipe} />
           )}
           <div>
             <h3
