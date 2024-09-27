@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import { exportGroceries, handleFileChange } from "./util/fileImportExport";
 
 const GroceriesManagement = ({
   groceries,
-  setGroceries,
   showDeleteCategory,
   setShowDeleteCategory,
   showDeleteItem,
@@ -12,6 +12,7 @@ const GroceriesManagement = ({
   addNewItemVisible,
   setAddNewItemVisible,
 }) => {
+  const dispatch = useDispatch();
   const [isContentVisible, setIsContentVisible] = useState(false);
 
   const hasItems = Object.values(groceries).some(
@@ -33,7 +34,7 @@ const GroceriesManagement = ({
             <input
               type="file"
               id="fileInput"
-              onChange={() => handleFileChange(event, setGroceries)}
+              onChange={() => handleFileChange(event, dispatch)}
               style={{ display: "none" }}
             />
             <label htmlFor="fileInput" style={{ cursor: "pointer" }}>

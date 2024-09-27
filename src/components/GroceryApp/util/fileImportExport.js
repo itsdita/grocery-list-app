@@ -1,4 +1,5 @@
 import DOMPurify from "dompurify";
+import { setGroceries } from "../../../features/groceriesSlice";
 
 export const exportGroceries = (groceries) => {
   const filename = "grocery_list.json";
@@ -30,7 +31,7 @@ const sanitizeGroceries = (groceries) => {
   return groceries;
 };
 
-export const handleFileChange = (event, setGroceries) => {
+export const handleFileChange = (event, dispatch) => {
   const file = event.target.files[0]; // Get the selected file
   if (!file) {
     alert("No file selected!");
@@ -50,7 +51,7 @@ export const handleFileChange = (event, setGroceries) => {
       let groceries = JSON.parse(contents);
       if (isValidGroceriesFormat(groceries)) {
         groceries = sanitizeGroceries(groceries);
-        setGroceries(groceries);
+        dispatch(setGroceries(groceries));
         console.log("File loaded successfully!");
       } else {
         throw new Error("Invalid format");

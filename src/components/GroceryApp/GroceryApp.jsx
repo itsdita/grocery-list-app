@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { saveToLocalStorage, loadFromLocalStorage } from "./util/storage";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setGroceries, loadGroceriesFromStorage } from "../../features/groceriesSlice";
 
 import Groceries from "./Groceries";
 import FinalList from "./FinalList";
@@ -10,30 +12,44 @@ import { GROCERIES } from "../../data";
 import "../../App.css";
 
 const GroceryApp = () => {
-  const [history, setHistory] = useState([]);
-  const [addNewItemVisible, setAddNewItemVisible] = useState(false);
-  const [groceries, setGroceries] = useState(() =>
-    loadFromLocalStorage(
-      "groceries",
-      GROCERIES.reduce((acc, current) => {
+  const dispatch = useDispatch();
+  const groceries = useSelector((state) => state.groceries.groceries);
+
+  useEffect(() => {
+    // First, try to load groceries from local storage
+    const storedGroceries = loadFromLocalStorage("groceries", null);
+
+    if (storedGroceries) {
+      // If there are groceries in local storage, load them
+      dispatch(loadGroceriesFromStorage(storedGroceries));
+    } else {
+      // If local storage is empty, load from default GROCERIES
+      const initialGroceries = GROCERIES.reduce((acc, current) => {
         acc[current.category] = current.items;
         return acc;
-      }, {})
-    )
-  );
-  const [list, setList] = useState(() => loadFromLocalStorage("list", {}));
+      }, {});
+
+      dispatch(loadGroceriesFromStorage(initialGroceries));
+    }
+  }, [dispatch]);
+
+  // Ensure groceries are saved to local storage after they're initialized
   useEffect(() => {
-    saveToLocalStorage("groceries", groceries);
+    if (groceries && Object.keys(groceries).length > 0) {
+      saveToLocalStorage("groceries", groceries);
+    }
   }, [groceries]);
+
+  const [history, setHistory] = useState([]);
+  const [addNewItemVisible, setAddNewItemVisible] = useState(false);
+  const [list, setList] = useState(() => loadFromLocalStorage("list", {}));
 
   useEffect(() => {
     saveToLocalStorage("list", list);
   }, [list]);
 
-  let updatedGroceries = groceries;
-
   const addNewItem = (item, category, selectedCategory) => {
-    setGroceries((groceries) => {
+    dispatch(setGroceries((groceries) => {
       const updatedGroceries = { ...groceries };
 
       if (updatedGroceries[selectedCategory]) {
@@ -47,8 +63,9 @@ const GroceryApp = () => {
         }
       }
       return updatedGroceries;
-    });
+    }));
   };
+
   const resetList = () => {
     const resetState = { ...list };
     Object.keys(resetState).forEach((category) => {
@@ -59,13 +76,12 @@ const GroceryApp = () => {
     setList({});
   };
 
-  // Fetch history from local storage when the app mounts
   useEffect(() => {
     const storedHistory = JSON.parse(localStorage.getItem("history")) || [];
     setHistory(storedHistory);
   }, []);
 
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const navigate = useNavigate();
 
   const handleClick = (path) => {
     navigate(path);
@@ -75,13 +91,12 @@ const GroceryApp = () => {
     <>
       <div id="grocery-app-container">
         {addNewItemVisible && (
-          <NewItem groceries={updatedGroceries} addNewItem={addNewItem} />
+          <NewItem groceries={groceries} addNewItem={addNewItem} />
         )}
         <Groceries
           addNewItemVisible={addNewItemVisible}
           setAddNewItemVisible={setAddNewItemVisible}
-          groceries={updatedGroceries}
-          setGroceries={setGroceries}
+          groceries={groceries}
           list={list}
           updateList={setList}
         />

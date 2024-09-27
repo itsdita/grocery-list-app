@@ -1,16 +1,17 @@
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
 import { handleDeleteItem, handleDeleteCategory } from "./util/handleDelete";
 import { handleCheck } from "./util/handleCheck";
 import GroceriesManagement from "./GroceriesManagement";
 
 const Groceries = ({
   updateList,
-  setGroceries,
   groceries,
   list,
   addNewItemVisible,
   setAddNewItemVisible,
 }) => {
+  const dispatch = useDispatch();
   const [showDeleteItem, setShowDeleteItem] = useState(false);
   const [showDeleteCategory, setShowDeleteCategory] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState({});
@@ -36,7 +37,7 @@ const Groceries = ({
               <button
                 className="delete-icon"
                 onClick={() =>
-                  handleDeleteCategory(category, setGroceries, updateList)
+                  handleDeleteCategory(category, updateList, dispatch, groceries)
                 }
               >
                 X
@@ -66,8 +67,9 @@ const Groceries = ({
                           handleDeleteItem(
                             category,
                             item,
-                            setGroceries,
-                            updateList
+                            updateList,
+                            dispatch,
+                            groceries
                           )
                         }
                       >
@@ -83,7 +85,6 @@ const Groceries = ({
       </div>
       <GroceriesManagement
         groceries={groceries}
-        setGroceries={setGroceries}
         showDeleteCategory={showDeleteCategory}
         showDeleteItem={showDeleteItem}
         setShowDeleteCategory={setShowDeleteCategory}
