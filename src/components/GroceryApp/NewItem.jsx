@@ -1,8 +1,11 @@
 import { useState } from "react";
+import {useSelector} from "react-redux";
 
 import { sanitizeAndValidateInput } from "../../global-util/sanitizeValidateInput";
 
-const NewItem = ({ groceries, addNewItem, addNewItemToggle }) => {
+const NewItem = ({ addNewItem, addNewItemToggle }) => {
+  const groceries = useSelector((state) => state.groceries.groceries);
+
   const [newItem, setNewItem] = useState("");
 
   const [newCategory, setNewCategory] = useState("");

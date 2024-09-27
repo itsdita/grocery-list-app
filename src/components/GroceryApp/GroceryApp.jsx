@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { saveToLocalStorage, loadFromLocalStorage } from "./util/storage";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setGroceries, loadGroceriesFromStorage } from "../../features/groceriesSlice";
+import {
+  setGroceries,
+  loadGroceriesFromStorage,
+} from "../../features/groceriesSlice";
 
 import Groceries from "./Groceries";
 import FinalList from "./FinalList";
@@ -15,25 +18,22 @@ const GroceryApp = () => {
   const dispatch = useDispatch();
   const groceries = useSelector((state) => state.groceries.groceries);
 
+  // Load groceries from localStorage or from default data
   useEffect(() => {
-    // First, try to load groceries from local storage
     const storedGroceries = loadFromLocalStorage("groceries", null);
 
     if (storedGroceries) {
-      // If there are groceries in local storage, load them
       dispatch(loadGroceriesFromStorage(storedGroceries));
     } else {
-      // If local storage is empty, load from default GROCERIES
       const initialGroceries = GROCERIES.reduce((acc, current) => {
         acc[current.category] = current.items;
         return acc;
       }, {});
-
       dispatch(loadGroceriesFromStorage(initialGroceries));
     }
   }, [dispatch]);
 
-  // Ensure groceries are saved to local storage after they're initialized
+  // Save groceries to localStorage whenever they change
   useEffect(() => {
     if (groceries && Object.keys(groceries).length > 0) {
       saveToLocalStorage("groceries", groceries);
@@ -44,28 +44,43 @@ const GroceryApp = () => {
   const [addNewItemVisible, setAddNewItemVisible] = useState(false);
   const [list, setList] = useState(() => loadFromLocalStorage("list", {}));
 
+  // Save list to localStorage whenever it changes
   useEffect(() => {
     saveToLocalStorage("list", list);
   }, [list]);
 
   const addNewItem = (item, category, selectedCategory) => {
-    dispatch(setGroceries((groceries) => {
-      const updatedGroceries = { ...groceries };
+    // Create a shallow copy of the groceries state to ensure immutability
+    const updatedGroceries = { ...groceries };
 
-      if (updatedGroceries[selectedCategory]) {
-        if (!updatedGroceries[selectedCategory].includes(item)) {
-          updatedGroceries[selectedCategory].push(item);
-        }
-      } else if (!updatedGroceries[category]) {
-        updatedGroceries[category] = [];
-        if (!updatedGroceries[category].includes(item)) {
-          updatedGroceries[category].push(item);
-        }
+    // Check if the selected category exists
+    if (updatedGroceries[selectedCategory]) {
+      // Create a new array to avoid mutating the original one
+      updatedGroceries[selectedCategory] = [
+        ...updatedGroceries[selectedCategory],
+      ];
+
+      // If the item doesn't exist in the selected category, add it
+      if (!updatedGroceries[selectedCategory].includes(item)) {
+        updatedGroceries[selectedCategory].push(item);
       }
-      return updatedGroceries;
-    }));
+    } else {
+      // If the category doesn't exist, create a new array for the category
+      updatedGroceries[category] = updatedGroceries[category]
+        ? [...updatedGroceries[category]]
+        : [];
+
+      // Add the item to the new category array
+      if (!updatedGroceries[category].includes(item)) {
+        updatedGroceries[category].push(item);
+      }
+    }
+
+    // Dispatch the updated groceries state to the store
+    dispatch(setGroceries(updatedGroceries));
   };
 
+  // Reset the list
   const resetList = () => {
     const resetState = { ...list };
     Object.keys(resetState).forEach((category) => {
@@ -76,6 +91,7 @@ const GroceryApp = () => {
     setList({});
   };
 
+  // Fetch history from localStorage
   useEffect(() => {
     const storedHistory = JSON.parse(localStorage.getItem("history")) || [];
     setHistory(storedHistory);
@@ -90,9 +106,7 @@ const GroceryApp = () => {
   return (
     <>
       <div id="grocery-app-container">
-        {addNewItemVisible && (
-          <NewItem groceries={groceries} addNewItem={addNewItem} />
-        )}
+        {addNewItemVisible && <NewItem addNewItem={addNewItem} />}
         <Groceries
           addNewItemVisible={addNewItemVisible}
           setAddNewItemVisible={setAddNewItemVisible}
