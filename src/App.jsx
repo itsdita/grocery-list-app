@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import GroceryApp from './components/GroceryApp/GroceryApp';
 import RecipeApp from './components/CookingApp/RecipeApp';
 import MainMenu from './components/MainMenu'; // Adjust the path if necessary
