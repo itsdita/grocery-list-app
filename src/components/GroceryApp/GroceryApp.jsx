@@ -110,7 +110,6 @@ const GroceryApp = () => {
         <Groceries
           addNewItemVisible={addNewItemVisible}
           setAddNewItemVisible={setAddNewItemVisible}
-          groceries={groceries}
           list={list}
           updateList={setList}
         />

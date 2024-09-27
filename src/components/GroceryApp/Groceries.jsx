@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { handleDeleteItem, handleDeleteCategory } from "./util/handleDelete";
 import { handleCheck } from "./util/handleCheck";
 import GroceriesManagement from "./GroceriesManagement";
 
 const Groceries = ({
   updateList,
-  groceries,
   list,
   addNewItemVisible,
   setAddNewItemVisible,
 }) => {
   const dispatch = useDispatch();
+  const groceries = useSelector((state) => state.groceries.groceries);
+
   const [showDeleteItem, setShowDeleteItem] = useState(false);
   const [showDeleteCategory, setShowDeleteCategory] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState({});
