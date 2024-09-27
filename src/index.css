@@ -1,11 +1,38 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
-  line-height: 1.5;
-  font-weight: 400;
+  
 
   color-scheme: light dark;
-  color: #333;
+  color: var(--color-grey-900);
+
+  --color-mint-100: #ebfcec;
+  --color-mint-200-alpha-01: rgba(171, 208, 191, 0.1);
+  --color-mint-200: #abd0bf;
+  --color-mint-200-alpha-01: rgba(171, 208, 191, 0.1);
+  --color-mint-200-alpha-03: rgba(171, 208, 191, 0.3);
+  --color-mint-200-alpha-06: rgba(171, 208, 191, 0.6);
+  --color-mint-300: #99cbb4;
+  --color-mint-400: #91c7ae;
+  --color-mint-500: #7dbfa0;
+  --color-mint-600-alpha-01: rgba(0, 123, 82, 0.1);
+  --color-mint-600-alpha-03: rgba(0, 123, 82, 0.3);
+  --color-grey-500: #909c8f;
+  --color-grey-900: #303430;
+  --color-red-100: #f9dada;
+  --color-red-300: #dfacac;
+  --color-red-500: #da4242;
+
+  --box-shadow-dark: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  --blur-low: blur(3px);
+  --blur-high: blur(6px);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

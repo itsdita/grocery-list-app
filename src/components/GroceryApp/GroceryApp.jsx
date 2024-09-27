@@ -12,7 +12,8 @@ import FinalList from "./FinalList";
 import FinalListHistory from "./FinalListHistory";
 import NewItem from "./NewItem";
 import { GROCERIES } from "../../data";
-import "../../App.css";
+
+import "./GroceryApp.css";
 
 const GroceryApp = () => {
   const dispatch = useDispatch();

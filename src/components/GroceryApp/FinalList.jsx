@@ -55,7 +55,7 @@ const FinalList = ({ list, resetList, history, setHistory }) => {
         <div className="final-list-container">
           <h3>Welcome</h3>
           <div>
-            <p>Click on the checkboxes to add items to the list.</p>
+            <p id="final-list-p">Click on the checkboxes to add items to the list.</p>
           </div>
         </div>
       ) : (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { handleDeleteItem, handleDeleteCategory } from "./util/handleDelete";
 import { handleCheck } from "./util/handleCheck";
 import GroceriesManagement from "./GroceriesManagement";
@@ -38,7 +38,12 @@ const Groceries = ({
               <button
                 className="delete-icon"
                 onClick={() =>
-                  handleDeleteCategory(category, updateList, dispatch, groceries)
+                  handleDeleteCategory(
+                    category,
+                    updateList,
+                    dispatch,
+                    groceries
+                  )
                 }
               >
                 X
@@ -49,18 +54,21 @@ const Groceries = ({
                 {/* iterating over array of items in a category */}
                 {groceries[category].map((item, i) => (
                   <li key={i}>
-                    <input name={item}
-                      /* passing the event and the category name to handleCheck function */
-                      onChange={(e) =>
-                        handleCheck(e, category, item, updateList)
-                      }
-                      type="checkbox"
-                      checked={
-                        (list[category] && list[category][item]) || false
-                      }
-                      value={item}
-                    />
-                    {item}
+                    <div className="input-label">
+                      <input
+                        name={item}
+                        /* passing the event and the category name to handleCheck function */
+                        onChange={(e) =>
+                          handleCheck(e, category, item, updateList)
+                        }
+                        type="checkbox"
+                        checked={
+                          (list[category] && list[category][item]) || false
+                        }
+                        value={item}
+                      />
+                      {item}
+                    </div>
                     {showDeleteItem && (
                       <button
                         className="delete-icon"

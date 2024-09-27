@@ -6,29 +6,21 @@ button,
   text-transform: uppercase;
   font-weight: bold;
   padding: 10px;
-  margin: 0 30px;
-  background-color: #acdfc6;
-  border: none;
+  margin: 2.5px 30px;
+  background: var(--color-mint-200-alpha-06);
+  box-shadow: var(--box-shadow-dark);
+  border: 1px solid var(--color-mint-200-alpha-06);
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: 0.3s;
 }
 button:hover,
 #import-file:hover,
 .import-file:hover,
-.grocery-list h3:hover,
-#history-container h3:hover,
 #back-to-main-menu button:hover {
-  background-color: rgba(0, 123, 82, 0.3);
-  color: white;
-}
-
-/* GROCERY APP
-Category Buttons */
-.grocery-list h3,
-#history-container h3 {
-  cursor: pointer;
-  transition: background-color 0.3s;
+  background-color: var(--color-mint-600-alpha-03);
+  border: 1px solid var(--color-mint-600-alpha-01);
+  color: var(--color-mint-100);
 }
 
 #back-to-main-menu button {
