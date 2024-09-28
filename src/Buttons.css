@@ -6,7 +6,7 @@ button,
   text-transform: uppercase;
   font-weight: bold;
   padding: 10px;
-  margin: 2.5px 30px;
+  margin: 2.5px 30px 5px 30px;
   background: var(--color-mint-200-alpha-06);
   box-shadow: var(--box-shadow-dark);
   border: 1px solid var(--color-mint-200-alpha-06);

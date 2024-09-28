@@ -44,7 +44,7 @@ const FinalListHistory = ({ history, setHistory }) => {
         (history.length === 0 ? (
           <p>No history available.</p>
         ) : (
-          <ul>
+          <div id="history-date-list-container">
             {history.map((entry, index) => {
               const dateObj = new Date(entry.date);
               const year = dateObj.getFullYear();
@@ -56,7 +56,7 @@ const FinalListHistory = ({ history, setHistory }) => {
 
               return (
                 <div className="date-list" key={index}>
-                  <span>
+                  <span >
                     <button
                       onClick={() => toggleExpanded(index)}
                       className="date-button"
@@ -91,7 +91,7 @@ const FinalListHistory = ({ history, setHistory }) => {
                 </div>
               );
             })}
-          </ul>
+          </div>
         ))}
     </section>
   );

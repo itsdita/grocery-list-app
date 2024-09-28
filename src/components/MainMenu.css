@@ -1,9 +1,9 @@
+/*button grid container*/
 .main-menu {
   max-width: 510px;
   justify-items: center;
   justify-content: center;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 30px auto;
   text-align: center;
   align-items: stretch;
   gap: 10px;
@@ -16,39 +16,42 @@
   gap: 10px;
 }
 
-#weather-widget {
- grid-column: 1 / span 2;
+.weather-widget {
+  grid-column: 1 / span 2;
   grid-row: 1;
   height: 80px;
+  border-radius: 16px;
+  background: var(--color-mint-200-alpha-06);
+  box-shadow: var(--box-shadow-dark);
+  backdrop-filter: var(--blur-high);
+  -webkit-backdrop-filter: var(--blur-high);
+  border: 1px solid var(--color-mint-200-alpha-03);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: 0.3s;
 }
 
 .menu-button {
   height: 250px;
   border-radius: 16px;
-  background: rgba(210, 233, 222, 0.6);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(193, 231, 213, 0.3);
+  background: var(--color-mint-200-alpha-06);
+  box-shadow: var(--box-shadow-dark);
+  backdrop-filter: var(--blur-high);
+  -webkit-backdrop-filter: var(--blur-high);
+  border: 1px solid var(--color-mint-200-alpha-03);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  font-size: 1.5em;
-  border-radius: 10px;
-  text-align: center;
+  font-size: 1.5rem;
   transition: 0.3s;
 }
 
 .menu-button:hover {
   font-size: 1.55em;
-  background-color: rgba(125, 191, 169, 0.81);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(193, 231, 213, 0.3);
-  color: white;
-}
-
-.menu-button h2 {
-  margin: 0;
+  background-color: var(--color-mint-600-alpha-03);
+  border: 1px solid var(--color-mint-600-alpha-01);
+  color: var(--color-mint-100);
 }

@@ -36,7 +36,7 @@ const Groceries = ({
             <h3 onClick={() => toggleCategory(category)}>{category}</h3>
             {showDeleteCategory && (
               <button
-                className="delete-icon"
+                className="delete-icon delete-category"
                 onClick={() =>
                   handleDeleteCategory(
                     category,

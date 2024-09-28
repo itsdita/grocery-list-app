@@ -1,7 +1,7 @@
 // WeatherWidget.jsx
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './WeatherWidget.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./WeatherWidget.css";
 
 const WeatherWidget = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -16,20 +16,20 @@ const WeatherWidget = () => {
       try {
         // API call to OpenWeatherMap
         const response = await axios.get(
-          'https://api.openweathermap.org/data/2.5/weather',
+          "https://api.openweathermap.org/data/2.5/weather",
           {
             params: {
               lat: latitude,
               lon: longitude,
-              units: 'metric', // Use 'imperial' for Fahrenheit
+              units: "metric", // Use 'imperial' for Fahrenheit
               appid: API_KEY,
             },
           }
         );
         setWeatherData(response.data);
       } catch (error) {
-        console.error('Error fetching weather data:', error);
-        setError('Unable to fetch weather data.');
+        console.error("Error fetching weather data:", error);
+        setError("Unable to fetch weather data.");
       } finally {
         setLoading(false);
       }
@@ -43,14 +43,14 @@ const WeatherWidget = () => {
             fetchWeatherData(latitude, longitude);
           },
           (error) => {
-            console.error('Error getting location:', error);
-            setError('Unable to retrieve your location.');
+            console.error("Error getting location:", error);
+            setError("Unable to retrieve your location.");
             setLoading(false);
           }
         );
       } else {
-        console.error('Geolocation is not supported by this browser.');
-        setError('Geolocation is not supported by your browser.');
+        console.error("Geolocation is not supported by this browser.");
+        setError("Geolocation is not supported by your browser.");
         setLoading(false);
       }
     };
@@ -59,15 +59,27 @@ const WeatherWidget = () => {
   }, [API_KEY]);
 
   if (loading) {
-    return <div className="weather-widget">Loading weather...</div>;
+    return (
+      <div className="weather-widget">
+        Loading weather...
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="weather-widget">{error}</div>;
+    return (
+      <div className="weather-widget">
+        {error}
+      </div>
+    );
   }
 
   if (!weatherData) {
-    return <div className="weather-widget">No weather data available.</div>;
+    return (
+      <div className="weather-widget">
+        No weather data available.
+      </div>
+    );
   }
 
   // Extract necessary data
@@ -77,7 +89,7 @@ const WeatherWidget = () => {
   const iconCode = weather[0].icon;
 
   return (
-    <div className="menu-button" id="weather-widget">
+    <div className="weather-widget">
       <div className="weather-location">{name}</div>
       <div className="weather-info">
         <img

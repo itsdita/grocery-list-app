@@ -52,14 +52,16 @@ h3 {
   transition: 0.3s;
 }
 .grocery-list h3:hover,
-#history-container h3:hover{
+#history-container h3:hover {
   background-color: var(--color-mint-600-alpha-03);
   border: 1px solid var(--color-mint-600-alpha-01);
   color: var(--color-mint-100);
 }
-.grocery-list .input-label {
-  display: flex;
-  align-items: center;
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+  text-align: left;
 }
 .grocery-list li {
   display: flex;
@@ -67,32 +69,42 @@ h3 {
   align-items: center;
   margin: 2px 0;
 }
+.grocery-list .input-label {
+  display: flex;
+  align-items: center;
+}
+/*check box*/
 .grocery-list input {
   cursor: pointer;
-  margin:0 10px 0 0;
+  margin: 0 10px 0 0;
+}
+.grocery-list .category-container {
+  position: relative;
+}
+/*DELETE ICONS*/
+.category-container .delete-category{
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 .delete-icon {
   color: var(--color-red-500);
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   text-transform: none;
-  background-color: var(--color-red-300);
   padding: 2px 6px;
   margin: 0;
-  border-radius: 1rem;
+  background-color: var(--color-red-300);
   border: 1px solid var(--color-red-500);
+  border-radius: 1rem;
   transition: 0.3s;
 }
 .delete-icon:hover {
   background-color: var(--color-red-500);
   color: var(--color-red-100);
 }
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 10px;
-  text-align: left;
-}
-
+/*FINAL LIST*/
 #final-list-p {
   margin: 20px 10px;
 }
@@ -106,9 +118,10 @@ ul {
   align-items: center;
 }
 .final-list input {
-  width: 80px;
+  width: 6rem;
+  margin: 2px 0;
   padding: 2px 5px;
-  color: #2e2e2e;
+  color: var(--color-grey-900);
   border: none;
   border-radius: 5px;
   background-color: var(--color-mint-100);
@@ -117,47 +130,15 @@ ul {
 .final-list input[type="text"]:focus {
   outline: 3px solid var(--color-mint-500);
 }
-
-select {
-  color: var(--color-grey-900);
-  padding: 10px;
-  margin: 0 30px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: var(--color-mint-100);
-  transition: background-color 0.3s;
-}
-select:focus {
-  outline: 3px solid var(--color-mint-500);
-}
-textarea {
-  resize: none;
-}
-
-input, textarea {
-  padding: 10px;
-  margin: 0 30px;
-  border: none;
-  border-radius: 5px;
-  background-color: var(--color-mint-100);
-}
-input[type="text"]:focus,
-textarea:focus {
-  outline: 3px solid var(--color-mint-500);
-}
-input::placeholder,
-textarea::placeholder {
-  color: var(--color-grey-500);
-}
-
 .grocery-list-container,
 .final-list-container {
   flex-grow: 1;
 }
+
 #groceries-management-container {
   display: flex;
   flex-direction: column;
+  margin-bottom: -5px;
 }
 
 #list-management-container {
